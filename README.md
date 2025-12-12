@@ -94,6 +94,14 @@ In order to improve the functionality and design of the project, co-design sessi
 
 > Improvements to the project were made over the course of the semester using feedback from in-class workshop sessions, feedback from a classmate who is a resident of Swissvale, feedback from project sponsors, and feedback from the end of semester showcase. Further gathering feedback from Swissvalians will allow the project to cater more towards them.
 
+### Accessibility
+
+The current demo is not as accessible to all as I would like it to be. In the future, the following improvments will be made:
+
+- **Tech Access**: Not everyone has access to a mobile phone or a cellular connection. This project should be able to be fully interactable in the Carnegie Free Library of Swissvale *at minimum*.
+- **Mobility**: In the future, users should be able to move around the player character without physically moving. This will allow those who aren't able to move around as easily in the physical world to interact with the project.
+
+
 ### Miscellaneous
 - **Badges**: Implementing some sort of badge system to increase engagement. Users should get badges for completing various tasks, such as going to a certain number of AOIs.
 - **Online Connectivity**: To increase connection within the community and promote collaboration, users should be able to connect with each other. This could be done as some sort of friend system.
