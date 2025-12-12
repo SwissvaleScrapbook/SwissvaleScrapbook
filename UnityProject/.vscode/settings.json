@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "ScrapbookUpdate.slnx"
+    "dotnet.defaultSolution": "UnityProject.slnx"
 }
