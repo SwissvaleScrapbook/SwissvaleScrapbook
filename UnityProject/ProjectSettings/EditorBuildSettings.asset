@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Mapbox/Examples/0_PrefabScenes/Location-basedGame.unity
+    path: Assets/3-Scenes/ScrapbookMapScreen.unity
     guid: 42f6aa7ce7a604f16ade319663f46ceb
   m_configObjects:
     Niantic.Lightship.AR.LightshipSettings: {fileID: 11400000, guid: 63276a7fc48314f599aa745ff8348a1f, type: 2}
