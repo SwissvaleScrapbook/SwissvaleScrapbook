@@ -598,17 +598,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83745160}
   m_CullTransparentMesh: 1
---- !u!114 &85395486 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114658503893516242, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
-  m_PrefabInstance: {fileID: 843921207}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b5c815d91f9d4c3690891f3ed4c3162, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &115973207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2979,7 +2968,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114105500206378512, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _previewOptions.isPreviewEnabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114105500206378512, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _options.extentOptions.extentType
@@ -3016,7 +3005,7 @@ PrefabInstance:
     - target: {fileID: 114467468983267246, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _editorLocationProvider
       value: 
-      objectReference: {fileID: 85395486}
+      objectReference: {fileID: 1875063883}
     - target: {fileID: 114467468983267246, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _transformLocationProvider
       value: 
@@ -3123,6 +3112,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 582204345}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1094528686802348, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1472087804}
     - targetCorrespondingSourceObject: {fileID: 1065618987163410, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 843921215}
@@ -4379,6 +4371,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427164836}
   m_CullTransparentMesh: 1
+--- !u!1 &1472087802 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1094528686802348, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+  m_PrefabInstance: {fileID: 843921207}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1472087803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114105500206378512, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+  m_PrefabInstance: {fileID: 843921207}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472087802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd961b1c9541a4cee99686069ecce852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1472087804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472087802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc6fd45cedd384b21b3e44791dedb7c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mapbox.Examples.MapMovement
+  _panSpeed: 1
+  _zoomSpeed: 0.25
+  _referenceCamera: {fileID: 8030623}
+  _mapManager: {fileID: 1472087803}
+  _useDegreeMethod: 0
 --- !u!1 &1473036512
 GameObject:
   m_ObjectHideFlags: 0
@@ -4870,6 +4895,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793930747}
   m_CullTransparentMesh: 1
+--- !u!114 &1875063883 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114811608996724456, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+  m_PrefabInstance: {fileID: 843921207}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a38712e93231418a84665190b8473d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1883413357
 GameObject:
   m_ObjectHideFlags: 0
