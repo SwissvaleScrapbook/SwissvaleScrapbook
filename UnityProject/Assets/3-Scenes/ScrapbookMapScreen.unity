@@ -598,6 +598,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 83745160}
   m_CullTransparentMesh: 1
+--- !u!114 &85395486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114658503893516242, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+  m_PrefabInstance: {fileID: 843921207}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5c815d91f9d4c3690891f3ed4c3162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &115973207
 GameObject:
   m_ObjectHideFlags: 0
@@ -3005,7 +3016,7 @@ PrefabInstance:
     - target: {fileID: 114467468983267246, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _editorLocationProvider
       value: 
-      objectReference: {fileID: 1725044864}
+      objectReference: {fileID: 85395486}
     - target: {fileID: 114467468983267246, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _transformLocationProvider
       value: 
@@ -4141,8 +4152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f975ce6540b0b48a7991775e5750d33d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  img: {fileID: 0}
-  caption: 
 --- !u!4 &1230869909
 Transform:
   m_ObjectHideFlags: 0
@@ -4724,17 +4733,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1667490105}
   m_CullTransparentMesh: 1
---- !u!114 &1725044864 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114811608996724456, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
-  m_PrefabInstance: {fileID: 843921207}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a38712e93231418a84665190b8473d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1793930747
 GameObject:
   m_ObjectHideFlags: 0
