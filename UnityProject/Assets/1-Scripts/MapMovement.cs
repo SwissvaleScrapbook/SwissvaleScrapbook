@@ -33,6 +33,10 @@ public class MapMovement : MonoBehaviour
 	[SerializeField]
 	public GameObject player;
 
+	[Header("Following")]
+	[SerializeField]
+	public bool followPlayer = false;
+
 
 	private Vector3 _origin;
 	private Vector3 _mousePosition;
