@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 4310658642812482}
   - component: {fileID: 114105500206378512}
   - component: {fileID: 114086566548189782}
+  - component: {fileID: 7230881085383425377}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -290,6 +291,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 114105500206378512}
+--- !u!114 &7230881085383425377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094528686802348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4ac425ab17b4a11a28a2be81aaf250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LocationPlacer
 --- !u!1 &1150654482131460
 GameObject:
   m_ObjectHideFlags: 0
@@ -526,6 +539,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1514120829208204
 GameObject:
@@ -731,6 +745,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &1638059881744458
 GameObject:

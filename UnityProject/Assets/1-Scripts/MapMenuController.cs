@@ -1,18 +1,46 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using Mapbox.Unity.Map;
 
 public class MapMenuController : MonoBehaviour
 {
     [Header("References")]
-    public GameObject mapOptionsCanvas;   // drag MapMenu > OptionsCanvas here
-    public CanvasGroup popupCanvasGroup;  // drag PopupPanel here (once you make it)
-    public Button mapMenuButton;          // drag MapMenuButton here
+    public GameObject mapOptionsCanvas;
+    public CanvasGroup popupCanvasGroup;
+    public Button mapMenuButton;
+    public AbstractMap map;
 
     private void Start()
     {
+        mapMenuButton = GameObject.Find("MapMenuButton").GetComponent<Button>();
         mapOptionsCanvas.SetActive(false);
         mapMenuButton.onClick.AddListener(() => StartCoroutine(ShowPopup()));
+    }
+
+    // MAP STYLE METHODS
+    public void SetMapStreets()
+    {
+        map.ImageLayer.SetLayerSource(ImagerySourceType.MapboxStreets);
+        StartCoroutine(HidePopup());
+    }
+
+    public void SetMapSatellite()
+    {
+        map.ImageLayer.SetLayerSource(ImagerySourceType.MapboxSatellite);
+        StartCoroutine(HidePopup());
+    }
+
+    public void SetMapLight()
+    {
+        map.ImageLayer.SetLayerSource(ImagerySourceType.MapboxLight);
+        StartCoroutine(HidePopup());
+    }
+
+    // POPUP METHODS
+    public void OnOverlayClicked()
+    {
+        StartCoroutine(HidePopup());
     }
 
     public IEnumerator ShowPopup()
@@ -55,9 +83,4 @@ public class MapMenuController : MonoBehaviour
         popupCanvasGroup.alpha = 0f;
         mapOptionsCanvas.SetActive(false);
     }
-
-    public void OnOverlayClicked()
-{
-    StartCoroutine(HidePopup());
-}
 }
