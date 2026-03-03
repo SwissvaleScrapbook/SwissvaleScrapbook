@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8240044641188048811}
   - component: {fileID: 6755558729889887528}
   - component: {fileID: 8375374351069730050}
-  - component: {fileID: 6481519583754214619}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -81,19 +80,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: NianticSpatial.NSDK.AR::NianticSpatial.NSDK.AR.WorldPositioning.ARWorldPositioningObjectHelper
   _altitudeMode: 3
   _altitudeOffset: 0
---- !u!114 &6481519583754214619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 941076760487053592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee95e4f338bf31840a4b85b2fd3b6c0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AddWPSObjects
-  positioningHelper: {fileID: 8375374351069730050}
 --- !u!1 &2632781182363926751
 GameObject:
   m_ObjectHideFlags: 0
