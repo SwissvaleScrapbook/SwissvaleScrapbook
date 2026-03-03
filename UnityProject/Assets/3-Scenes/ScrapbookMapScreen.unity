@@ -3147,6 +3147,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114005716392592828, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: _measurements
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 114011132729224596, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _sendEvent
       value: 0
@@ -6651,6 +6655,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Origin
       objectReference: {fileID: 0}
+    - target: {fileID: 2648379411329099573, guid: 49e376446cbae934790ce77ec330b9fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6731279978461177271, guid: 49e376446cbae934790ce77ec330b9fa, type: 3}
       propertyPath: m_FocusMode
       value: -1
@@ -6658,6 +6666,10 @@ PrefabInstance:
     - target: {fileID: 6731279978461177271, guid: 49e376446cbae934790ce77ec330b9fa, type: 3}
       propertyPath: m_LightEstimationMode
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240044641188048811, guid: 49e376446cbae934790ce77ec330b9fa, type: 3}
+      propertyPath: m_RequestedTrackingOriginMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8499532438943392222, guid: 49e376446cbae934790ce77ec330b9fa, type: 3}
       propertyPath: m_LocalPosition.x
