@@ -17,6 +17,7 @@ namespace Mapbox.Unity.Map
 	using Mapbox.Unity.MeshGeneration.Data;
 	using System.Globalization;
 
+
 	/// <summary>
 	/// Abstract map.
 	/// This is the main monobehavior which controls the map. It controls the visualization of map data.
