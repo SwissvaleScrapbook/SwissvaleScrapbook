@@ -23,7 +23,7 @@ public class LocationPlacer : MonoBehaviour
 
     // One prefab per location, in the same order as the JSON
     [SerializeField]
-    List<GameObject> _markerPrefabs;
+    GameObject _markerPrefab;
 
     // Name of JSON file inside StreamingAssets folder
     [SerializeField]
@@ -45,15 +45,15 @@ public class LocationPlacer : MonoBehaviour
 
         for (int i = 0; i < _locationData.Count; i++)
         {
-            if (i >= _markerPrefabs.Count)
+            if (_markerPrefab == null)
             {
-                Debug.LogWarning($"LocationPlacer: no prefab for location index {i}, skipping.");
+                Debug.LogWarning($"LocationPlacer: no prefab assigned, skipping location index {i}.");
                 break;
             }
 
             var loc = _locationData[i];
             var latLon = new Vector2d(loc.latitude, loc.longitude);
-            var instance = Instantiate(_markerPrefabs[i]);
+            var instance = Instantiate(_markerPrefab);
             var y_increase = new Vector3(0, 10f, 0); // raise marker above ground to prevent z-fighting
             instance.transform.localPosition = _map.GeoToWorldPosition(latLon, true) + y_increase;
             instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
