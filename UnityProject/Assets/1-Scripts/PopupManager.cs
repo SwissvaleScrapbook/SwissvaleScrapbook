@@ -18,6 +18,11 @@ public class PopupManager : MonoBehaviour
     [Header("Background Settings")]
     [SerializeField] private GameObject background;
     [SerializeField] private float fadeDuration = 0.5f; // Duration of fade animation
+    [Header("Story Stack")]
+
+    // adding references to storystack and story detail panels so we can enable/disable them as needed
+    [SerializeField] private GameObject storyStackPanel;
+    [SerializeField] private GameObject storyDetailPanel;
 
     private Image backgroundImage;
     private CanvasGroup backgroundCanvasGroup;
@@ -54,6 +59,10 @@ public class PopupManager : MonoBehaviour
     {
         Debug.Log("Showing popup for: " + mapMarker.GetComponent<LocationMarker>().locationData.locationName);
 
+        // ADDING
+        if (storyStackPanel != null) storyStackPanel.SetActive(true);
+        if (storyDetailPanel != null) storyDetailPanel.SetActive(false);
+
         // Enable the canvas (PopupManager's first child)
         canvas.SetActive(true);
 
@@ -74,6 +83,7 @@ public class PopupManager : MonoBehaviour
 
         // Fade in the images one by one
         FadeInImages();
+
     }
 
     public void HideLocationPopup()
@@ -317,6 +327,9 @@ public class PopupManager : MonoBehaviour
     private void SetStoryAlpha(GameObject story, float alpha)
     {
         if (story == null) return;
+// AZ ADDITION
+        if (storyDetailPanel != null && story.transform.IsChildOf(storyDetailPanel.transform))
+                return; // Don't fade if it's part of the story detail panel
 
         // Try CanvasGroup first (recommended approach)
         CanvasGroup canvasGroup = story.GetComponent<CanvasGroup>();
