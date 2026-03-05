@@ -303,6 +303,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4ac425ab17b4a11a28a2be81aaf250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocationPlacer
+  _map: {fileID: 114105500206378512}
+  _locationStrings: []
+  _spawnScale: 100
+  _markerPrefab: {fileID: 0}
 --- !u!1 &1150654482131460
 GameObject:
   m_ObjectHideFlags: 0

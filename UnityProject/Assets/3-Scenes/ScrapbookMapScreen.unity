@@ -1034,7 +1034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &149416742
 Transform:
   m_ObjectHideFlags: 0
@@ -3306,6 +3306,42 @@ PrefabInstance:
     - target: {fileID: 114811608996724456, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _editorDebuggingOnly._mockUnityInputLocation
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: _spawnScale
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: _markerPrefab
+      value: 
+      objectReference: {fileID: 852191483051655803, guid: 46952b50821ee41239f047509bdcc81e, type: 3}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: _markerPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: _locationStrings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: '_markerPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 852191483051655803, guid: 46952b50821ee41239f047509bdcc81e, type: 3}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: '_locationStrings.Array.data[0]'
+      value: 40.444295, -79.953204
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: '_locationStrings.Array.data[1]'
+      value: 40.44390639129881, -79.95273682544264
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: '_locationStrings.Array.data[2]'
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: '_locationStrings.Array.data[3]'
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114352101756843672, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
