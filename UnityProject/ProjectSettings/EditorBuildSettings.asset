@@ -10,6 +10,8 @@ EditorBuildSettings:
     guid: 42f6aa7ce7a604f16ade319663f46ceb
   m_configObjects:
     Niantic.Lightship.AR.LightshipSettings: {fileID: 11400000, guid: 63276a7fc48314f599aa745ff8348a1f, type: 2}
+    NianticSpatial.NSDK.AR.AuthBuildSettings: {fileID: 11400000, guid: d239d0ec00f7dc44592e4b0856e2c8b4, type: 2}
+    NianticSpatial.NSDK.AR.NsdkSettings: {fileID: 11400000, guid: e7c1cc8bce76a71498ee488f43c67b5b, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 295bcc6c3404c4310b98297c09912a09, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 94de4881d0fe24bea9f85dc398475333, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
