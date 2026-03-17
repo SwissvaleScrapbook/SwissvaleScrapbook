@@ -30,5 +30,5 @@ public class LocationData
     
     [Header("Content")]
     public List<ImageObject> imgList = new List<ImageObject>();
-    public List<StoryObject> storyList = new List<StoryObject>();
+    public List<StoryCard> storyList = new List<StoryCard>();
 }

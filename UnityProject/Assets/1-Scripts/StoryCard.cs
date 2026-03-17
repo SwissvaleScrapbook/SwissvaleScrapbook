@@ -19,11 +19,6 @@ public class StoryCard : MonoBehaviour
 
     public void OnCardClicked()
     {
-        if (manager == null)
-        {
-            Debug.LogError("StoryCard: No StoryStackManager found in scene!");
-            return;
-        }
-        manager.OpenStory(this);
+        PopupManager.instance.OpenStory(this);
     }
 }

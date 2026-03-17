@@ -10,6 +10,6 @@ public class CloseButton : MonoBehaviour
     }
     public void HidePopup()
     {
-        PopupManager.instance.HideLocationPopup();
+        //PopupManager.instance.HideLocationPopup();
     }
 }

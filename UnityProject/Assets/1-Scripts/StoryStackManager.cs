@@ -29,6 +29,12 @@ public class StoryStackManager : MonoBehaviour
         ArrangeStack();
     }
 
+    public void RefreshStack()
+    {
+    cards = new List<StoryCard>(storyStackPanel.GetComponentsInChildren<StoryCard>());
+    ArrangeStack();
+    }
+
     void ArrangeStack()
     {
         for (int i = 0; i < cards.Count; i++)
