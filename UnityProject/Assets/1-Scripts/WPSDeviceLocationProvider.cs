@@ -133,7 +133,7 @@ namespace Mapbox.Unity.Location
 			if (_pollRoutine == null)
 			{
 				// TODO: come back to this and implement PollLocationRoutine
-				//_pollRoutine = StartCoroutine(PollLocationRoutine());
+				_pollRoutine = StartCoroutine(PollLocationRoutine());
 			}
 		}
 
