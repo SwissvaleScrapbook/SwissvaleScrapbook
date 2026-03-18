@@ -22,8 +22,14 @@ public class PopupManager : MonoBehaviour
 
     // adding references to storystack and story detail panels so we can enable/disable them as needed
     [SerializeField] private GameObject storyStackPanel;
-    [SerializeField] private GameObject storyDetailPanel;
+    // [SerializeField] private GameObject storyDetailPanel;
     [SerializeField] private GameObject storyCardPrefab; 
+    [SerializeField] private GameObject storyDetailCanvas;
+
+    // adding ref to title and body
+    [Header("Story Detail")]
+[SerializeField] private TextMeshProUGUI detailTitle;
+[SerializeField] private TextMeshProUGUI detailBody;
 
     private Image backgroundImage;
     private CanvasGroup backgroundCanvasGroup;
@@ -52,11 +58,36 @@ public class PopupManager : MonoBehaviour
     {
         Debug.Log("OpenStory called! Title: " + card.storyTitle); // TEST
         //currentCard = card;
-        //detailTitle.text = card.storyTitle;
-        ///detailBody.text = card.storyBody;
-        storyDetailPanel.SetActive(true);
-        storyStackPanel.SetActive(false);
+        detailTitle.text = card.storyTitle;
+        detailBody.text = card.storyBody;
+
+        // add to tell storystackmanager which card is opened
+        storyStackPanel.GetComponent<StoryStackManager>().currentCard = card;
+
+        // Hide main popup elements
+    background.SetActive(false);
+    locationName.SetActive(false);
+    closeButton.SetActive(false);
+    storyStackPanel.SetActive(false);
+
+    // Show detail panel
+    storyDetailCanvas.SetActive(true);
+
+     Debug.Log("StoryDetailPanel active: " + storyDetailCanvas.activeSelf);
+    Debug.Log("Background active: " + storyDetailCanvas.transform.Find("Background").gameObject.activeSelf);
+    Debug.Log("TitleText: " + detailTitle.text);
     }
+
+    public void CloseStory()
+{
+    background.SetActive(true);
+    locationName.SetActive(true);
+    closeButton.SetActive(true);
+    storyStackPanel.SetActive(true);
+    storyDetailCanvas.SetActive(false);
+
+    storyStackPanel.GetComponent<StoryStackManager>().SendCurrentCardToBack();
+}
 
 
 
@@ -82,10 +113,7 @@ public class PopupManager : MonoBehaviour
     }
 
     private void DisplayStories()
-    {
-        // create instance of a sotrycard child and make it a child of the story stack panel 
-        // whenever you hit the close button and hide popup is called, make sure all the children r deleted 
-    
+{
     // Clear any existing cards from a previous location
     foreach (Transform child in storyStackPanel.transform)
     {
@@ -97,12 +125,51 @@ public class PopupManager : MonoBehaviour
     {
         GameObject newCard = Instantiate(storyCardPrefab, storyStackPanel.transform);
         StoryCard newStoryCard = newCard.GetComponent<StoryCard>();
+
+        if (newStoryCard == null)
+        {
+            Debug.LogError("StoryCard component not found on prefab!");
+            continue;
+        }
+
         newStoryCard.storyTitle = story.storyTitle;
         newStoryCard.storyBody = story.storyBody;
+
+        // Update the visible title label on the card
+        TextMeshProUGUI label = newCard.GetComponentInChildren<TextMeshProUGUI>();
+        if (label != null)
+            label.text = story.storyTitle;
     }
 
     // Tell StoryStackManager to re-arrange the stack with the new cards
+    StartCoroutine(RefreshStackNextFrame());
+}
+
+private IEnumerator RefreshStackNextFrame()
+{
+    yield return null;
     storyStackPanel.GetComponent<StoryStackManager>().RefreshStack();
+}
+
+// for close button to work
+
+    public void HideLocationPopup() {
+    Debug.Log("HideLocationPopup called!"); 
+    Debug.Log("HideLocationPopup called from: " + System.Environment.StackTrace);
+{
+    foreach (Transform child in storyStackPanel.transform)
+    {
+        Destroy(child.gameObject);
+    }
+
+    background.SetActive(true);
+    locationName.SetActive(true);
+    closeButton.SetActive(true);
+    storyDetailCanvas.SetActive(false);
+    storyStackPanel.SetActive(true);
+
+    canvas.SetActive(false);
+}
     }
 
 

@@ -8,7 +8,7 @@ public class StoryStackManager : MonoBehaviour
 {
     [Header("Panels")]
     public GameObject storyStackPanel;
-    public GameObject storyDetailPanel;
+    public GameObject storyDetailCanvas;
 
     [Header("Detail View")]
     public TextMeshProUGUI detailTitle;
@@ -18,34 +18,39 @@ public class StoryStackManager : MonoBehaviour
     [Header("Cards")]
     public List<StoryCard> cards;
 
-    private StoryCard currentCard;
+    public StoryCard currentCard;
+
 
     void Start()
-    {
-        foreach (StoryCard card in cards)
-            card.Init(this);
-
-        storyDetailPanel.SetActive(false);
-        ArrangeStack();
-    }
+{
+    if (storyDetailCanvas != null)
+        storyDetailCanvas.SetActive(false);
+    ArrangeStack();
+}
 
     public void RefreshStack()
-    {
+{
     cards = new List<StoryCard>(storyStackPanel.GetComponentsInChildren<StoryCard>());
     ArrangeStack();
-    }
+}
 
-    void ArrangeStack()
+   void ArrangeStack()
+{
+    if (cards == null || cards.Count == 0) return;
+    
+    cards.RemoveAll(card => card == null); // ADD THIS - removes null entries
+    
+    if (cards.Count == 0) return;
+
+    for (int i = 0; i < cards.Count; i++)
     {
-        for (int i = 0; i < cards.Count; i++)
-        {
-            RectTransform rt = cards[i].GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector2(0, -i * 12f);
-            rt.localScale = Vector3.one * (1f - i * 0.03f);
-            cards[i].transform.SetSiblingIndex(cards.Count - 1 - i);
-        }
-        UpdateCounter();
+        RectTransform rt = cards[i].GetComponent<RectTransform>();
+        rt.anchoredPosition = new Vector2(0, -i * 12f);
+        rt.localScale = Vector3.one * (1f - i * 0.03f);
+        cards[i].transform.SetSiblingIndex(cards.Count - 1 - i);
     }
+    UpdateCounter();
+}
 
     public void OpenStory(StoryCard card)
     {
@@ -53,13 +58,13 @@ public class StoryStackManager : MonoBehaviour
         currentCard = card;
         detailTitle.text = card.storyTitle;
         detailBody.text = card.storyBody;
-        storyDetailPanel.SetActive(true);
+        storyDetailCanvas.SetActive(true);
         storyStackPanel.SetActive(false);
     }
 
     public void OnBackPressed()
     {
-        storyDetailPanel.SetActive(false);
+        storyDetailCanvas.SetActive(false);
         storyStackPanel.SetActive(true);
         StartCoroutine(SendToBackAnimation(currentCard));
     }
@@ -72,7 +77,7 @@ public class StoryStackManager : MonoBehaviour
 
         // Slide out to the right
         float t = 0f;
-        float duration = 0.2f;
+        float duration = 0.5f;
         while (t < duration)
         {
             t += Time.deltaTime;
@@ -88,9 +93,15 @@ public class StoryStackManager : MonoBehaviour
         ArrangeStack();
     }
 
+    public void SendCurrentCardToBack()
+{
+    if (currentCard == null) return;
+    StartCoroutine(SendToBackAnimation(currentCard));
+}
+
     void UpdateCounter()
-    {
-        if (cards.Count > 0)
-            counterText.text = $"1 / {cards.Count}";
-    }
+{
+    if (counterText != null && cards.Count > 0)
+        counterText.text = $"1 / {cards.Count}";
+}
 }
