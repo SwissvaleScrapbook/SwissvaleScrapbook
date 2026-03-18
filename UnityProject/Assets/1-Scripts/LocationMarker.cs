@@ -5,6 +5,7 @@ public class LocationMarker : MonoBehaviour
 {
     [SerializeField] public LocationData locationData;
     [SerializeField] private SpriteRenderer symbolRenderer;
+
     
     [Header("Discovery Settings")]
     public bool discovered = false;
@@ -38,4 +39,8 @@ public class LocationMarker : MonoBehaviour
         }
     }
 
+    void OnMouseDown()
+    {
+        PopupManager.instance.ShowLocationPopup(gameObject);
+    }
 }

@@ -4,42 +4,6 @@ using UnityEngine.UI;
 
 public class PlayerTrigger : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("MapMarker"))
-        {
-            Debug.Log("Entered MapMarker Trigger");
-            
-            // Send the map marker to PopupManager to show popup
-            ShowPopup(other.gameObject);
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("MapMarker"))
-        {
-            Debug.Log("Exited MapMarker Trigger");
-            
-            //HidePopup();
-            
-            // // Hide everything and reset alphas
-            // Transform imgCanvas = other.transform.GetChild(4);
-            // Transform textCanvas = other.transform.GetChild(5);
-            // Transform bgCanvas = other.transform.GetChild(3);
-            
-            // textCanvas.gameObject.SetActive(false);
-            // ResetAlpha(textCanvas);
-            // bgCanvas.gameObject.SetActive(false);
-            
-            // foreach (Transform img in imgCanvas)
-            // {
-            //     img.gameObject.SetActive(false);
-            //     ResetAlpha(img);
-            // }
-            // imgCanvas.gameObject.SetActive(false);
-        }
-    }
     
     void ShowPopup(GameObject mapMarker)
     {
@@ -48,7 +12,7 @@ public class PlayerTrigger : MonoBehaviour
 
     void HidePopup()
     {
-        PopupManager.instance.HideLocationPopup();
+        //PopupManager.instance.HideLocationPopup();
     }
 
     // IEnumerator FadeInSequence(Transform mapMarker)
