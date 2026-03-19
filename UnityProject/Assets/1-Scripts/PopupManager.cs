@@ -108,8 +108,19 @@ public class PopupManager : MonoBehaviour
 
     private void SetStories(GameObject mapMarker)
     {
-        List<StoryCard> markerStoryList = mapMarker.GetComponent<LocationMarker>().locationData.storyList;
-        PopupManager.instance.stories = new List<StoryCard>(markerStoryList);
+        LocationData data = mapMarker.GetComponent<LocationMarker>().locationData;
+    Debug.Log("Stories count: " + data.stories.Count); // ADD THIS
+    
+    stories = new List<StoryCard>();
+
+    foreach (StoryObject s in data.stories)
+    {
+        GameObject temp = new GameObject("TempStoryCard");
+        StoryCard card = temp.AddComponent<StoryCard>();
+        card.storyTitle = s.title;
+        card.storyBody = s.body;
+        stories.Add(card);
+    }
     }
 
     private void DisplayStories()
@@ -120,8 +131,33 @@ public class PopupManager : MonoBehaviour
         Destroy(child.gameObject);
     }
 
-    // Instantiate a card for each story in the list
     foreach (StoryCard story in stories)
+{
+    if (story == null)
+    {
+        Debug.LogError("Null story in list, skipping!");
+        continue;
+    }
+
+    GameObject newCard = Instantiate(storyCardPrefab, storyStackPanel.transform);
+    StoryCard newStoryCard = newCard.GetComponent<StoryCard>();
+
+    if (newStoryCard == null)
+    {
+        Debug.LogError("StoryCard component not found on prefab!");
+        continue;
+    }
+
+    newStoryCard.storyTitle = story.storyTitle;
+    newStoryCard.storyBody = story.storyBody;
+
+    TextMeshProUGUI label = newCard.GetComponentInChildren<TextMeshProUGUI>();
+    if (label != null)
+        label.text = story.storyTitle;
+}
+
+    // Instantiate a card for each story in the list
+    /*foreach (StoryCard story in stories)
     {
         GameObject newCard = Instantiate(storyCardPrefab, storyStackPanel.transform);
         StoryCard newStoryCard = newCard.GetComponent<StoryCard>();
@@ -140,6 +176,7 @@ public class PopupManager : MonoBehaviour
         if (label != null)
             label.text = story.storyTitle;
     }
+    */
 
     // Tell StoryStackManager to re-arrange the stack with the new cards
     StartCoroutine(RefreshStackNextFrame());

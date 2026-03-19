@@ -225,6 +225,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1612896520751157284, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
   m_PrefabInstance: {fileID: 8461568304050418213}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &35124540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 852191483051655803, guid: 46952b50821ee41239f047509bdcc81e, type: 3}
+  m_PrefabInstance: {fileID: 672096230}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &83745160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1838,6 +1843,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Old Library
       objectReference: {fileID: 0}
+    - target: {fileID: 852191483051655803, guid: 46952b50821ee41239f047509bdcc81e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1382838559253903312, guid: 46952b50821ee41239f047509bdcc81e, type: 3}
       propertyPath: locationData.symbol
       value: 
@@ -2319,6 +2328,18 @@ PrefabInstance:
       propertyPath: _editorDebuggingOnly._mockUnityInputLocation
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: _markerPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: '_markerPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 35124540}
+    - target: {fileID: 7230881085383425377, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
+      propertyPath: '_markerPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1943569251}
     m_RemovedComponents:
     - {fileID: 114352101756843672, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
     m_RemovedGameObjects:
@@ -3641,7 +3662,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1943569252
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3773,6 +3794,7 @@ MonoBehaviour:
       caption: This is the second placeholder image.
     - image: {fileID: 21300000, guid: eec6e30b4ecf94f5b9b314411e1a5208, type: 3}
       caption: This is the third placeholder image.
+    stories: []
     storyList:
     - {fileID: 0}
     - {fileID: 0}
@@ -5048,6 +5070,14 @@ PrefabInstance:
     - target: {fileID: 7127207957267686144, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7481315077777983425, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 77b343d22458645ab9c1f1b2d3ae6d17, type: 2}
+    - target: {fileID: 7481315077777983425, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7572285620258044092, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

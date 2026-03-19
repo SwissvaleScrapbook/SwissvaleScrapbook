@@ -13,6 +13,8 @@ public class ImageObject
 public class StoryObject
 {
     public string title;
+    // adding
+    public string body;
     public List<string> quotes = new List<string>();
     public List<AudioClip> audioFiles = new List<AudioClip>();    
 }
@@ -30,5 +32,7 @@ public class LocationData
     
     [Header("Content")]
     public List<ImageObject> imgList = new List<ImageObject>();
+    // adding
+    public List<StoryObject> stories = new List<StoryObject>();
     public List<StoryCard> storyList = new List<StoryCard>();
 }
