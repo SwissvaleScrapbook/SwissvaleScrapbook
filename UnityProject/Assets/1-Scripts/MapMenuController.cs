@@ -11,11 +11,16 @@ public class MapMenuController : MonoBehaviour
     public Button mapMenuButton;
     public AbstractMap map;
 
+    public static bool isMapMenuOpen = false;
+
+
+
     private void Start()
     {
         mapMenuButton = GameObject.Find("MapMenuButton").GetComponent<Button>();
         mapOptionsCanvas.SetActive(false);
         mapMenuButton.onClick.AddListener(() => StartCoroutine(ShowPopup()));
+
     }
 
     // MAP STYLE METHODS
@@ -46,6 +51,7 @@ public class MapMenuController : MonoBehaviour
     public IEnumerator ShowPopup()
     {
         mapOptionsCanvas.SetActive(true);
+        isMapMenuOpen = true;
         popupCanvasGroup.alpha = 0f;
         popupCanvasGroup.interactable = false;
         popupCanvasGroup.blocksRaycasts = false;
@@ -81,6 +87,7 @@ public class MapMenuController : MonoBehaviour
         }
 
         popupCanvasGroup.alpha = 0f;
-        mapOptionsCanvas.SetActive(false);
+        mapOptionsCanvas.SetActive(false); 
+        isMapMenuOpen = false;
     }
 }
