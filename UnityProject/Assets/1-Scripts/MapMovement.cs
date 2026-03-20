@@ -57,7 +57,10 @@ public class MapMovement : MonoBehaviour
 
 	void Start()
 	{
-		RecenterButton.onClick.AddListener(RecenterMap);
+		if(RecenterButton != null)
+		{
+			RecenterButton.onClick.AddListener(RecenterMap);
+		}
 	}
 
 	public void Update()

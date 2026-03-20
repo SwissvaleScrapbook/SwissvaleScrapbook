@@ -65,10 +65,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This orange peg is you. As you move around in the real world, your location
-    updates on the map.
-
-'
+  m_text: "The orange peg is you. As you move around in the real world, your location
+    updates on the map. Can\u2019t find yourself on the map? Hit the recenter button
+    in the top left corner!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1023,7 +1022,7 @@ MonoBehaviour:
   skipButton: {fileID: 0}
   enableLocation: 0
   enablePlayer: 1
-  enableRecenterButton: 0
+  enableRecenterButton: 1
   enableMapButton: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
