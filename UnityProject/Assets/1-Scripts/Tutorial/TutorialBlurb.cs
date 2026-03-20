@@ -17,7 +17,6 @@ public class TutorialBlurb : MonoBehaviour
     [Header("Triggers")]
     public bool triggerLocationPopup;
     public bool triggerStoryPopup;
-    public bool recenterPlayer;
 
     void Start()
     {
@@ -57,11 +56,6 @@ public class TutorialBlurb : MonoBehaviour
         {
             // Trigger story popup of the first StoryCard in the location's story list
             TutorialManager.instance.ShowStoryPopup();
-        }
-        if(recenterPlayer)
-        {
-            // Recenter player
-            TutorialManager.instance.RecenterPlayer();
         }
     }
 

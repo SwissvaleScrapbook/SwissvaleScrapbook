@@ -10,6 +10,7 @@ public class TutorialManager : MonoBehaviour
 
     // List of child objects that represent each step of the tutorial
     public List<GameObject> tutorialSteps;
+    private int currentStepIndex = 0;
 
     [Header("Scene Objects")]
     public GameObject location;
@@ -50,16 +51,10 @@ public class TutorialManager : MonoBehaviour
 
     public void AdvanceTutorial()
     {
-        // check if there are any tutorial steps left
-        if(tutorialSteps.Count > 1)
+        if(currentStepIndex >= tutorialSteps.Count)
         {
-            // Remove the first step from the list and disable it
-            GameObject currentStep = tutorialSteps[0];
-            tutorialSteps.RemoveAt(0);
-            currentStep.SetActive(false);            
-        }
-        else
-        {
+            UnityEngine.Debug.LogWarning("No more tutorial steps to advance to.");
+
             // If there are no steps left, disable the entire tutorial
             allLocations.SetActive(true);
             tutorialObj.SetActive(false);
@@ -67,16 +62,39 @@ public class TutorialManager : MonoBehaviour
             player.SetActive(true);
             recenterButton.SetActive(true);
             mapButton.SetActive(true);
+
+            return;
+        }
+        else
+        {
+            // Disable current step
+            tutorialSteps[currentStepIndex].SetActive(false);
+
+            // Increment step index
+            currentStepIndex++;
+
+            // Set next step to active
+            tutorialSteps[currentStepIndex].SetActive(true);
             
-            // Print out to console that tutorial is finished
-            UnityEngine.Debug.Log("TUTORIAL FINISHED");
+        }
+    }
+
+    public void AdvanceTutorialToStep(int step)
+    {
+        if(step < 0 || step >= tutorialSteps.Count)
+        {
+            UnityEngine.Debug.LogError("Invalid tutorial step index: " + step);
+            return;
         }
 
-        // Set next step to active if there are steps left
-        if(tutorialSteps.Count > 0)
-        {
-            tutorialSteps[0].SetActive(true);
-        }
+        // Disable current step
+        tutorialSteps[currentStepIndex].SetActive(false);
+
+        // Set specified step index
+        currentStepIndex = step;
+
+        // Set next step to active
+        tutorialSteps[currentStepIndex].SetActive(true);
     }
 
     public void SkipTutorial()
