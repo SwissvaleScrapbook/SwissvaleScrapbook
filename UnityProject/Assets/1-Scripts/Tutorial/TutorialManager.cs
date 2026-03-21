@@ -51,9 +51,12 @@ public class TutorialManager : MonoBehaviour
 
     public void AdvanceTutorial()
     {
-        if(currentStepIndex >= tutorialSteps.Count)
+        if(currentStepIndex >= tutorialSteps.Count - 1)
         {
             UnityEngine.Debug.LogWarning("No more tutorial steps to advance to.");
+
+            tutorialSteps[currentStepIndex].SetActive(false);
+
 
             // If there are no steps left, disable the entire tutorial
             allLocations.SetActive(true);
@@ -79,23 +82,23 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    public void AdvanceTutorialToStep(int step)
-    {
-        if(step < 0 || step >= tutorialSteps.Count)
-        {
-            UnityEngine.Debug.LogError("Invalid tutorial step index: " + step);
-            return;
-        }
+    // public void AdvanceTutorialToStep(int step)
+    // {
+    //     if(step < 0 || step >= tutorialSteps.Count)
+    //     {
+    //         UnityEngine.Debug.LogError("Invalid tutorial step index: " + step);
+    //         return;
+    //     }
 
-        // Disable current step
-        tutorialSteps[currentStepIndex].SetActive(false);
+    //     // Disable current step
+    //     tutorialSteps[currentStepIndex].SetActive(false);
 
-        // Set specified step index
-        currentStepIndex = step;
+    //     // Set specified step index
+    //     currentStepIndex = step;
 
-        // Set next step to active
-        tutorialSteps[currentStepIndex].SetActive(true);
-    }
+    //     // Set next step to active
+    //     tutorialSteps[currentStepIndex].SetActive(true);
+    // }
 
     public void SkipTutorial()
     {
