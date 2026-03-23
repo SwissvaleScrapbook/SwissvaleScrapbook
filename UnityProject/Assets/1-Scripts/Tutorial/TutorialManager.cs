@@ -104,9 +104,9 @@ public class TutorialManager : MonoBehaviour
     {
         // Disable TutorialManager
         tutorialObj.SetActive(false);
+        location.SetActive(false);
 
         // Enable all scene objects
-        location.SetActive(true);
         allLocations.SetActive(true);
         player.SetActive(true);
         recenterButton.SetActive(true);

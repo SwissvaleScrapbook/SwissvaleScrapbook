@@ -41,6 +41,7 @@ public class LocationMarker : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (MapMenuController.isMapMenuOpen) return;
         PopupManager.instance.ShowLocationPopup(gameObject);
     }
 }
