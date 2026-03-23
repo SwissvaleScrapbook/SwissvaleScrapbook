@@ -1,0 +1,41 @@
+{
+  "locations": [
+    {
+      "latitude": 40.444295,
+      "longitude": -79.953204,
+      "symbol-id": 0,
+      "stories": [
+        {
+            "title": "Old Church Story",
+            "body": "TEST WORKING? Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+      ],
+
+      "imageList":[
+        {
+            "id": 0
+        }
+      ],
+
+      "locationName": "Spawned Location 1"
+    },
+    {
+      "latitude": 40.44390639129881,
+      "longitude": -79.9,
+      "symbol-id": 0,
+      "stories": [
+        {
+            "title": "Old Library",
+            "body": "TEST WORKING? Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        }
+      ],
+
+      "imageList":[
+        {
+            "id": 0
+        }
+      ],
+      "locationName": "Spawned Location 2"
+    }
+  ]
+}
