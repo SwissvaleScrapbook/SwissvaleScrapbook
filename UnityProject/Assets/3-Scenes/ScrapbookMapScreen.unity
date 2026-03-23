@@ -2431,6 +2431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8467743e3d4468aadb7feca058157a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LocationPlacer
+  markerPrefab: {fileID: 852191483051655803, guid: 46952b50821ee41239f047509bdcc81e, type: 3}
 --- !u!1 &1473036512
 GameObject:
   m_ObjectHideFlags: 0
