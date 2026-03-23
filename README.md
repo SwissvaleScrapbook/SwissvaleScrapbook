@@ -5,6 +5,7 @@ In Partnership with Project Sponsors:
 - Dr. Susan Lucas
 - Dr. Dawna Cerney
 - Dr. Amy Flick
+- Dr. Jessica FitzPatrick
 
 This project was created as a part of a senior capstone class at the University of Pittsburgh.
 
