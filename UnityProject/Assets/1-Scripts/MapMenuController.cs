@@ -17,7 +17,7 @@ public class MapMenuController : MonoBehaviour
 
     private void Start()
     {
-        mapMenuButton = GameObject.Find("MapMenuButton").GetComponent<Button>();
+        mapMenuButton = mapMenuButton.GetComponent<Button>();
         mapOptionsCanvas.SetActive(false);
         mapMenuButton.onClick.AddListener(() => StartCoroutine(ShowPopup()));
 
