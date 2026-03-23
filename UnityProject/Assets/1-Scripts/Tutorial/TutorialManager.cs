@@ -13,7 +13,7 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex = 0;
 
     [Header("Scene Objects")]
-    public GameObject location;
+    public GameObject tutorialLocation;
     public GameObject allLocations;
     public GameObject player;
     public GameObject recenterButton;
@@ -42,7 +42,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         // Disable all scene objects
-        location.SetActive(false);
+        tutorialLocation.SetActive(false);
         allLocations.SetActive(false);
         player.SetActive(false);
         recenterButton.SetActive(false);
@@ -61,7 +61,7 @@ public class TutorialManager : MonoBehaviour
             // If there are no steps left, disable the entire tutorial
             allLocations.SetActive(true);
             tutorialObj.SetActive(false);
-            location.SetActive(false);
+            tutorialLocation.SetActive(false);
             player.SetActive(true);
             recenterButton.SetActive(true);
             mapButton.SetActive(true);
@@ -82,29 +82,11 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    // public void AdvanceTutorialToStep(int step)
-    // {
-    //     if(step < 0 || step >= tutorialSteps.Count)
-    //     {
-    //         UnityEngine.Debug.LogError("Invalid tutorial step index: " + step);
-    //         return;
-    //     }
-
-    //     // Disable current step
-    //     tutorialSteps[currentStepIndex].SetActive(false);
-
-    //     // Set specified step index
-    //     currentStepIndex = step;
-
-    //     // Set next step to active
-    //     tutorialSteps[currentStepIndex].SetActive(true);
-    // }
-
     public void SkipTutorial()
     {
         // Disable TutorialManager
         tutorialObj.SetActive(false);
-        location.SetActive(false);
+        tutorialLocation.SetActive(false);
 
         // Enable all scene objects
         allLocations.SetActive(true);
@@ -115,15 +97,15 @@ public class TutorialManager : MonoBehaviour
 
     public void ShowLocationPopup()
     {
-        if(location != null)
+        if(tutorialLocation != null)
         {
-            PopupManager.instance.ShowLocationPopup(location);
+            PopupManager.instance.ShowLocationPopup(tutorialLocation);
         }
     }
 
     public void ShowStoryPopup()
     {
-        PopupManager.instance.OpenStory(location.GetComponent<LocationData>().storyList[0]);
+        PopupManager.instance.OpenStory(tutorialLocation.GetComponent<LocationData>().storyList[0]);
 
     }
 

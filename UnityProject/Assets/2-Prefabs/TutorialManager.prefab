@@ -430,6 +430,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &852008005141110595
@@ -1156,6 +1157,7 @@ MonoBehaviour:
   enablePlayer: 1
   enableRecenterButton: 1
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &2511272533496935560
@@ -1288,6 +1290,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &2541649308081508205
@@ -2406,6 +2409,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &4475352228123612999
@@ -2459,6 +2463,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &4497207039663640297
@@ -2888,6 +2893,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &4771642485809316884
@@ -3384,6 +3390,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &5427317069605966974
@@ -3909,6 +3916,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &6130007932036206408
@@ -4084,6 +4092,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &6516328221330780197
@@ -4215,6 +4224,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &6724723355730936957
@@ -4269,6 +4279,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &6822809983132995275
@@ -5157,6 +5168,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &8450209602151082451
@@ -5211,6 +5223,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 1
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &8570591568644574681
@@ -5264,6 +5277,7 @@ MonoBehaviour:
   enablePlayer: 0
   enableRecenterButton: 0
   enableMapButton: 0
+  enableLocationInteraction: 0
   triggerLocationPopup: 0
   triggerStoryPopup: 0
 --- !u!1 &8685871561534648814
@@ -5723,7 +5737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialManager
   tutorialObj: {fileID: 8965284781113606796}
   tutorialSteps: []
-  location: {fileID: 0}
+  tutorialLocation: {fileID: 0}
   allLocations: {fileID: 0}
   player: {fileID: 0}
   recenterButton: {fileID: 0}

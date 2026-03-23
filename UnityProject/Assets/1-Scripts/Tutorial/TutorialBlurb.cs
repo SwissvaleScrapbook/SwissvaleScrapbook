@@ -13,6 +13,7 @@ public class TutorialBlurb : MonoBehaviour
     public bool enablePlayer;
     public bool enableRecenterButton;
     public bool enableMapButton;
+    public bool enableLocationInteraction;
 
     [Header("Triggers")]
     public bool triggerLocationPopup;
@@ -33,7 +34,7 @@ public class TutorialBlurb : MonoBehaviour
         // Enable scene objects based on settings
         if(enableLocation)
         {
-            TutorialManager.instance.location.SetActive(true);
+            TutorialManager.instance.tutorialLocation.SetActive(true);
         }
         if(enablePlayer)
         {
@@ -56,6 +57,10 @@ public class TutorialBlurb : MonoBehaviour
         {
             // Trigger story popup of the first StoryCard in the location's story list
             TutorialManager.instance.ShowStoryPopup();
+        }
+        if(enableLocationInteraction)
+        {
+            TutorialManager.instance.tutorialLocation.GetComponent<LocationMarker>().isInteractable = true;
         }
     }
 
