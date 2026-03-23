@@ -15,6 +15,7 @@ namespace Mapbox.Unity.Location
 	{
 		[SerializeField] public NianticSpatial.NSDK.AR.WorldPositioning.ARWorldPositioningManager positioningManager;
 		private NianticSpatial.NSDK.AR.WorldPositioning.ARWorldPositioningCameraHelper cameraHelper;
+		private WPSCompassProvider WPSCompass;
 
 		/// <summary>
 		/// Using higher value like 500 usually does not require to turn GPS chip on and thus saves battery power. 
@@ -118,7 +119,8 @@ namespace Mapbox.Unity.Location
 #endif
 			if (usingEditor == false)
 			{
-				_locationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
+				//_locationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
+				WPSCompass.positioningManager = positioningManager;
 			}
 
 			_currentLocation.Provider = "unity";
@@ -250,6 +252,7 @@ namespace Mapbox.Unity.Location
 
 				// device orientation, user heading get calculated below
 				_deviceOrientationSmoothing.Add((cameraHelper.TrueHeading));
+				//_deviceOrientationSmoothing.Add(WPSCompass.heading);
 				_currentLocation.DeviceOrientation = (float)_deviceOrientationSmoothing.Calculate();
 
 
