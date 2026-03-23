@@ -1,5 +1,6 @@
 # Swissvale Scrapbook
 Created by Greyson Barsotti (gjb46@pitt.edu)
+Developed by Greyson Barsotti, Amy Zhang, and Nickhil Naranjan
 
 In Partnership with Project Sponsors:
 - Dr. Susan Lucas
