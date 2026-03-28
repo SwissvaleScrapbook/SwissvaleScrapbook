@@ -81,6 +81,8 @@ namespace Mapbox.Unity.Location
 
 		private NianticSpatial.NSDK.AR.LocationService _locationService;
 
+		private IMapboxLocationService _mapboxLocationService;
+
 		//using usingEditor as an alternative to conditional if
 		//this is because I(Nickhil) always want the WPS code in this file to be compiled so I can check the editor for compilation errors (I have an android phone, which this project doesn't support yet)
 		private bool usingEditor = false;
@@ -113,7 +115,7 @@ namespace Mapbox.Unity.Location
 			else
 			{
 #endif
-				_mockLocationService = new MapboxLocationServiceUnityWrapper();
+				_mapboxLocationService = new MapboxLocationServiceUnityWrapper();
 #if UNITY_EDITOR
 			}
 #endif
@@ -175,178 +177,357 @@ namespace Mapbox.Unity.Location
 #endif
 
 
-			if (!_locationService.isEnabledByUser)
+			if (_locationService.isEnabledByUser)
 			{
-				Debug.LogError("DeviceLocationProvider: Location is not enabled by user!");
+				WPSCompass._currentLocation.IsLocationServiceEnabled = true;
 				_currentLocation.IsLocationServiceEnabled = false;
-				SendLocation(_currentLocation);
-				yield break;
 			}
-
-
-			_currentLocation.IsLocationServiceInitializing = true;
-			_locationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
-			Input.compass.enabled = true;
-
-			int maxWait = 20;
-			while (_locationService.status == LocationServiceStatus.Initializing && maxWait > 0)
-			{
-				yield return _wait1sec;
-				maxWait--;
-			}
-
-			if (maxWait < 1)
-			{
-				Debug.LogError("DeviceLocationProvider: " + "Timed out trying to initialize location services!");
-				_currentLocation.IsLocationServiceInitializing = false;
-				_currentLocation.IsLocationServiceEnabled = false;
-				SendLocation(_currentLocation);
-				yield break;
-			}
-
-			if (_locationService.status == LocationServiceStatus.Failed)
-			{
-				Debug.LogError("DeviceLocationProvider: " + "Failed to initialize location services!");
-				_currentLocation.IsLocationServiceInitializing = false;
-				_currentLocation.IsLocationServiceEnabled = false;
-				SendLocation(_currentLocation);
-				yield break;
-			}
-
-			_currentLocation.IsLocationServiceInitializing = false;
-			_currentLocation.IsLocationServiceEnabled = true;
-
-#if UNITY_EDITOR
-			// HACK: this is to prevent Android devices, connected through Unity Remote, 
-			// from reporting a location of (0, 0), initially.
-			yield return _wait1sec;
-#endif
-
-			System.Globalization.CultureInfo invariantCulture = System.Globalization.CultureInfo.InvariantCulture;
-
-			while (true)
-			{
-
-				var lastData = _locationService.lastData;
-				var timestamp = lastData.timestamp;
-
-				///////////////////////////////
-				// oh boy, Unity what are you doing???
-				// on some devices it seems that
-				// Input.location.status != LocationServiceStatus.Running
-				// nevertheless new location is available
-				//////////////////////////////
-				//Debug.LogFormat("Input.location.status: {0}", Input.location.status);
-				_currentLocation.IsLocationServiceEnabled =
-					_locationService.status == LocationServiceStatus.Running
-					|| timestamp > _lastLocationTimestamp;
-
-				_currentLocation.IsUserHeadingUpdated = false;
-				_currentLocation.IsLocationUpdated = false;
-
-				if (!_currentLocation.IsLocationServiceEnabled)
+			else
+            {
+				Debug.LogWarning("DeviceLocationProvider: Location is not enabled by user! Attempting to use GPS instead.");
+				WPSCompass._currentLocation.IsLocationServiceEnabled = false;
+				if (_mapboxLocationService.isEnabledByUser)
 				{
-					yield return _waitUpdateTime;
-					continue;
+					_currentLocation.IsLocationServiceEnabled = true;
+				}
+				else
+				{
+					Debug.LogError("DeviceLocationProvider: GPS Location is not enabled by user! Aborting.");
+				}
+			}
+
+			if (!WPSCompass._currentLocation.IsLocationServiceEnabled)
+			{
+				_currentLocation.IsLocationServiceInitializing = true;
+				_locationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
+				Input.compass.enabled = true;
+
+				int maxWait = 20;
+				while (_locationService.status == LocationServiceStatus.Initializing && maxWait > 0)
+				{
+					yield return _wait1sec;
+					maxWait--;
 				}
 
-				// device orientation, user heading get calculated below
-				_deviceOrientationSmoothing.Add((cameraHelper.TrueHeading));
-				//_deviceOrientationSmoothing.Add(WPSCompass.heading);
-				_currentLocation.DeviceOrientation = (float)_deviceOrientationSmoothing.Calculate();
-
-
-				//_currentLocation.LatitudeLongitude = new Vector2d(lastData.latitude, lastData.longitude);
-				// HACK to get back to double precision, does this even work?
-				// https://forum.unity.com/threads/precision-of-location-longitude-is-worse-when-longitude-is-beyond-100-degrees.133192/#post-1835164
-				double latitude = double.Parse(lastData.latitude.ToString("R", invariantCulture), invariantCulture);
-				double longitude = double.Parse(lastData.longitude.ToString("R", invariantCulture), invariantCulture);
-				Vector2d previousLocation = new Vector2d(_currentLocation.LatitudeLongitude.x, _currentLocation.LatitudeLongitude.y);
-				_currentLocation.LatitudeLongitude = new Vector2d(latitude, longitude);
-
-				_currentLocation.Accuracy = (float)Math.Floor(lastData.horizontalAccuracy);
-				// sometimes Unity's timestamp doesn't seem to get updated, or even jump back in time
-				// do an additional check if location has changed
-				_currentLocation.IsLocationUpdated = timestamp > _lastLocationTimestamp || !_currentLocation.LatitudeLongitude.Equals(previousLocation);
-				_currentLocation.Timestamp = timestamp;
-				_lastLocationTimestamp = timestamp;
-
-				if (_currentLocation.IsLocationUpdated)
+				if (maxWait < 1)
 				{
-					if (_lastPositions.Count > 0)
+					Debug.LogError("DeviceLocationProvider: " + "Timed out trying to initialize location services!");
+					_currentLocation.IsLocationServiceInitializing = false;
+					_currentLocation.IsLocationServiceEnabled = false;
+					SendLocation(_currentLocation);
+					yield break;
+				}
+
+				if (_locationService.status == LocationServiceStatus.Failed)
+				{
+					Debug.LogError("DeviceLocationProvider: " + "Failed to initialize location services!");
+					_currentLocation.IsLocationServiceInitializing = false;
+					_currentLocation.IsLocationServiceEnabled = false;
+					SendLocation(_currentLocation);
+					yield break;
+				}
+					_currentLocation.IsLocationServiceInitializing = false;
+					_currentLocation.IsLocationServiceEnabled = true;
+
+#if UNITY_EDITOR
+				// HACK: this is to prevent Android devices, connected through Unity Remote, 
+				// from reporting a location of (0, 0), initially.
+				yield return _wait1sec;
+#endif
+
+				System.Globalization.CultureInfo invariantCulture = System.Globalization.CultureInfo.InvariantCulture;
+
+				while (true)
+				{
+
+					var lastData = _locationService.lastData;
+					var timestamp = lastData.timestamp;
+
+					///////////////////////////////
+					// oh boy, Unity what are you doing???
+					// on some devices it seems that
+					// Input.location.status != LocationServiceStatus.Running
+					// nevertheless new location is available
+					//////////////////////////////
+					//Debug.LogFormat("Input.location.status: {0}", Input.location.status);
+					_currentLocation.IsLocationServiceEnabled =
+						_locationService.status == LocationServiceStatus.Running
+						|| timestamp > _lastLocationTimestamp;
+
+					_currentLocation.IsUserHeadingUpdated = false;
+					_currentLocation.IsLocationUpdated = false;
+
+					if (!_currentLocation.IsLocationServiceEnabled)
 					{
-						// only add position if user has moved +1m since we added the previous position to the list
-						CheapRuler cheapRuler = new CheapRuler(_currentLocation.LatitudeLongitude.x, CheapRulerUnits.Meters);
-						Vector2d p = _currentLocation.LatitudeLongitude;
-						double distance = cheapRuler.Distance(
-							new double[] { p.y, p.x },
-							new double[] { _lastPositions[0].y, _lastPositions[0].x }
-						);
-						if (distance > 1.0)
+						yield return _waitUpdateTime;
+						continue;
+					}
+
+					// device orientation, user heading get calculated below
+					_deviceOrientationSmoothing.Add((cameraHelper.TrueHeading));
+					//_deviceOrientationSmoothing.Add(WPSCompass.heading);
+					_currentLocation.DeviceOrientation = (float)_deviceOrientationSmoothing.Calculate();
+
+
+					//_currentLocation.LatitudeLongitude = new Vector2d(lastData.latitude, lastData.longitude);
+					// HACK to get back to double precision, does this even work?
+					// https://forum.unity.com/threads/precision-of-location-longitude-is-worse-when-longitude-is-beyond-100-degrees.133192/#post-1835164
+					double latitude = double.Parse(lastData.latitude.ToString("R", invariantCulture), invariantCulture);
+					double longitude = double.Parse(lastData.longitude.ToString("R", invariantCulture), invariantCulture);
+					Vector2d previousLocation = new Vector2d(_currentLocation.LatitudeLongitude.x, _currentLocation.LatitudeLongitude.y);
+					_currentLocation.LatitudeLongitude = new Vector2d(latitude, longitude);
+
+					_currentLocation.Accuracy = (float)Math.Floor(lastData.horizontalAccuracy);
+					// sometimes Unity's timestamp doesn't seem to get updated, or even jump back in time
+					// do an additional check if location has changed
+					_currentLocation.IsLocationUpdated = timestamp > _lastLocationTimestamp || !_currentLocation.LatitudeLongitude.Equals(previousLocation);
+					_currentLocation.Timestamp = timestamp;
+					_lastLocationTimestamp = timestamp;
+
+					if (_currentLocation.IsLocationUpdated)
+					{
+						if (_lastPositions.Count > 0)
+						{
+							// only add position if user has moved +1m since we added the previous position to the list
+							CheapRuler cheapRuler = new CheapRuler(_currentLocation.LatitudeLongitude.x, CheapRulerUnits.Meters);
+							Vector2d p = _currentLocation.LatitudeLongitude;
+							double distance = cheapRuler.Distance(
+								new double[] { p.y, p.x },
+								new double[] { _lastPositions[0].y, _lastPositions[0].x }
+							);
+							if (distance > 1.0)
+							{
+								_lastPositions.Add(_currentLocation.LatitudeLongitude);
+							}
+						}
+						else
 						{
 							_lastPositions.Add(_currentLocation.LatitudeLongitude);
 						}
 					}
-					else
+
+					// if we have enough positions calculate user heading ourselves.
+					// Unity does not provide bearing based on GPS locations, just
+					// device orientation based on Compass.Heading.
+					// nevertheless, use compass for intial UserHeading till we have
+					// enough values to calculate ourselves.
+					if (_lastPositions.Count < _maxLastPositions)
 					{
-						_lastPositions.Add(_currentLocation.LatitudeLongitude);
-					}
-				}
-
-				// if we have enough positions calculate user heading ourselves.
-				// Unity does not provide bearing based on GPS locations, just
-				// device orientation based on Compass.Heading.
-				// nevertheless, use compass for intial UserHeading till we have
-				// enough values to calculate ourselves.
-				if (_lastPositions.Count < _maxLastPositions)
-				{
-					_currentLocation.UserHeading = _currentLocation.DeviceOrientation;
-					_currentLocation.IsUserHeadingUpdated = true;
-				}
-				else
-				{
-					Vector2d newestPos = _lastPositions[0];
-					Vector2d oldestPos = _lastPositions[_maxLastPositions - 1];
-					CheapRuler cheapRuler = new CheapRuler(newestPos.x, CheapRulerUnits.Meters);
-					// distance between last and first position in our buffer
-					double distance = cheapRuler.Distance(
-						new double[] { newestPos.y, newestPos.x },
-						new double[] { oldestPos.y, oldestPos.x }
-					);
-					// positions are minimum required distance apart (user is moving), calculate user heading
-					if (distance >= _minDistanceOldestNewestPosition)
-					{
-						float[] lastHeadings = new float[_maxLastPositions - 1];
-
-						for (int i = 1; i < _maxLastPositions; i++)
-						{
-							// atan2 increases angle CCW, flip sign of latDiff to get CW
-							double latDiff = -(_lastPositions[i].x - _lastPositions[i - 1].x);
-							double lngDiff = _lastPositions[i].y - _lastPositions[i - 1].y;
-							// +90.0 to make top (north) 0°
-							double heading = (Math.Atan2(latDiff, lngDiff) * 180.0 / Math.PI) + 90.0f;
-							// stay within [0..360]° range
-							if (heading < 0) { heading += 360; }
-							if (heading >= 360) { heading -= 360; }
-							lastHeadings[i - 1] = (float)heading;
-						}
-
-						_userHeadingSmoothing.Add(lastHeadings[0]);
-						float finalHeading = (float)_userHeadingSmoothing.Calculate();
-
-						//fix heading to have 0° for north, 90° for east, 180° for south and 270° for west
-						finalHeading = finalHeading >= 180.0f ? finalHeading - 180.0f : finalHeading + 180.0f;
-
-
-						_currentLocation.UserHeading = finalHeading;
+						_currentLocation.UserHeading = _currentLocation.DeviceOrientation;
 						_currentLocation.IsUserHeadingUpdated = true;
 					}
+					else
+					{
+						Vector2d newestPos = _lastPositions[0];
+						Vector2d oldestPos = _lastPositions[_maxLastPositions - 1];
+						CheapRuler cheapRuler = new CheapRuler(newestPos.x, CheapRulerUnits.Meters);
+						// distance between last and first position in our buffer
+						double distance = cheapRuler.Distance(
+							new double[] { newestPos.y, newestPos.x },
+							new double[] { oldestPos.y, oldestPos.x }
+						);
+						// positions are minimum required distance apart (user is moving), calculate user heading
+						if (distance >= _minDistanceOldestNewestPosition)
+						{
+							float[] lastHeadings = new float[_maxLastPositions - 1];
+
+							for (int i = 1; i < _maxLastPositions; i++)
+							{
+								// atan2 increases angle CCW, flip sign of latDiff to get CW
+								double latDiff = -(_lastPositions[i].x - _lastPositions[i - 1].x);
+								double lngDiff = _lastPositions[i].y - _lastPositions[i - 1].y;
+								// +90.0 to make top (north) 0°
+								double heading = (Math.Atan2(latDiff, lngDiff) * 180.0 / Math.PI) + 90.0f;
+								// stay within [0..360]° range
+								if (heading < 0) { heading += 360; }
+								if (heading >= 360) { heading -= 360; }
+								lastHeadings[i - 1] = (float)heading;
+							}
+
+							_userHeadingSmoothing.Add(lastHeadings[0]);
+							float finalHeading = (float)_userHeadingSmoothing.Calculate();
+
+							//fix heading to have 0° for north, 90° for east, 180° for south and 270° for west
+							finalHeading = finalHeading >= 180.0f ? finalHeading - 180.0f : finalHeading + 180.0f;
+
+
+							_currentLocation.UserHeading = finalHeading;
+							_currentLocation.IsUserHeadingUpdated = true;
+						}
+					}
+
+					_currentLocation.TimestampDevice = UnixTimestampUtils.To(DateTime.UtcNow);
+					SendLocation(_currentLocation);
+
+					yield return _waitUpdateTime;
+				}
+			}
+			else if (WPSCompass._currentLocation.IsLocationServiceEnabled)
+            {
+				WPSCompass._currentLocation.IsLocationServiceInitializing = true;
+				_locationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
+				Input.compass.enabled = true;
+
+				int maxWait = 20;
+				while (_locationService.status == LocationServiceStatus.Initializing && maxWait > 0)
+				{
+					yield return _wait1sec;
+					maxWait--;
 				}
 
-				_currentLocation.TimestampDevice = UnixTimestampUtils.To(DateTime.UtcNow);
-				SendLocation(_currentLocation);
+				if (maxWait < 1)
+				{
+					Debug.LogError("DeviceLocationProvider: " + "Timed out trying to initialize location services!");
+					WPSCompass._currentLocation.IsLocationServiceInitializing = false;
+					WPSCompass._currentLocation.IsLocationServiceEnabled = false;
+					SendLocation(WPSCompass._currentLocation);
+					yield break;
+				}
 
-				yield return _waitUpdateTime;
+				if (_locationService.status == LocationServiceStatus.Failed)
+				{
+					Debug.LogError("DeviceLocationProvider: " + "Failed to initialize location services!");
+					WPSCompass._currentLocation.IsLocationServiceInitializing = false;
+					WPSCompass._currentLocation.IsLocationServiceEnabled = false;
+					SendLocation(WPSCompass._currentLocation);
+					yield break;
+				}
+				WPSCompass._currentLocation.IsLocationServiceInitializing = false;
+				WPSCompass._currentLocation.IsLocationServiceEnabled = true;
+
+#if UNITY_EDITOR
+				// HACK: this is to prevent Android devices, connected through Unity Remote, 
+				// from reporting a location of (0, 0), initially.
+				yield return _wait1sec;
+#endif
+
+				System.Globalization.CultureInfo invariantCulture = System.Globalization.CultureInfo.InvariantCulture;
+
+				while (true)
+				{
+					
+					var lastData = WPSCompass.lastData;
+					var timestamp = WPSCompass.timestamp;
+
+					///////////////////////////////
+					// oh boy, Unity what are you doing???
+					// on some devices it seems that
+					// Input.location.status != LocationServiceStatus.Running
+					// nevertheless new location is available
+					//////////////////////////////
+					//Debug.LogFormat("Input.location.status: {0}", Input.location.status);
+					WPSCompass._currentLocation.IsLocationServiceEnabled =
+						_locationService.status == LocationServiceStatus.Running
+						|| timestamp > _lastLocationTimestamp;
+
+					WPSCompass._currentLocation.IsUserHeadingUpdated = false;
+					WPSCompass._currentLocation.IsLocationUpdated = false;
+
+					if (!WPSCompass._currentLocation.IsLocationServiceEnabled)
+					{
+						yield return _waitUpdateTime;
+						continue;
+					}
+
+					// device orientation, user heading get calculated below
+					_deviceOrientationSmoothing.Add((cameraHelper.TrueHeading));
+					//_deviceOrientationSmoothing.Add(WPSCompass.heading);
+					WPSCompass._currentLocation.DeviceOrientation = (float)_deviceOrientationSmoothing.Calculate();
+
+
+					//WPSCompass._currentLocation.LatitudeLongitude = new Vector2d(lastData.latitude, lastData.longitude);
+					// HACK to get back to double precision, does this even work?
+					// https://forum.unity.com/threads/precision-of-location-longitude-is-worse-when-longitude-is-beyond-100-degrees.133192/#post-1835164
+					double latitude = double.Parse(lastData.x.ToString("R", invariantCulture), invariantCulture);
+					double longitude = double.Parse(lastData.y.ToString("R", invariantCulture), invariantCulture);
+					Vector2d previousLocation = new Vector2d(WPSCompass._currentLocation.LatitudeLongitude.x, WPSCompass._currentLocation.LatitudeLongitude.y);
+					WPSCompass._currentLocation.LatitudeLongitude = new Vector2d(latitude, longitude);
+
+					//WPSCompass._currentLocation.Accuracy = (float)Math.Floor(lastData.horizontalAccuracy);
+					WPSCompass._currentLocation.Accuracy = (float)Math.Floor(WPSCompass._currentLocation.Accuracy); //unsure on if horiz.acc. changes so gonna keep it constant for now.
+					// sometimes Unity's timestamp doesn't seem to get updated, or even jump back in time
+					// do an additional check if location has changed
+					WPSCompass._currentLocation.IsLocationUpdated = timestamp > _lastLocationTimestamp || !WPSCompass._currentLocation.LatitudeLongitude.Equals(previousLocation);
+					WPSCompass._currentLocation.Timestamp = timestamp;
+					_lastLocationTimestamp = timestamp;
+
+					if (WPSCompass._currentLocation.IsLocationUpdated)
+					{
+						if (_lastPositions.Count > 0)
+						{
+							// only add position if user has moved +1m since we added the previous position to the list
+							CheapRuler cheapRuler = new CheapRuler(WPSCompass._currentLocation.LatitudeLongitude.x, CheapRulerUnits.Meters);
+							Vector2d p = WPSCompass._currentLocation.LatitudeLongitude;
+							double distance = cheapRuler.Distance(
+								new double[] { p.y, p.x },
+								new double[] { _lastPositions[0].y, _lastPositions[0].x }
+							);
+							if (distance > 1.0)
+							{
+								_lastPositions.Add(WPSCompass._currentLocation.LatitudeLongitude);
+							}
+						}
+						else
+						{
+							_lastPositions.Add(WPSCompass._currentLocation.LatitudeLongitude);
+						}
+					}
+
+					// if we have enough positions calculate user heading ourselves.
+					// Unity does not provide bearing based on GPS locations, just
+					// device orientation based on Compass.Heading.
+					// nevertheless, use compass for intial UserHeading till we have
+					// enough values to calculate ourselves.
+					if (_lastPositions.Count < _maxLastPositions)
+					{
+						WPSCompass._currentLocation.UserHeading = WPSCompass._currentLocation.DeviceOrientation;
+						WPSCompass._currentLocation.IsUserHeadingUpdated = true;
+					}
+					else
+					{
+						Vector2d newestPos = _lastPositions[0];
+						Vector2d oldestPos = _lastPositions[_maxLastPositions - 1];
+						CheapRuler cheapRuler = new CheapRuler(newestPos.x, CheapRulerUnits.Meters);
+						// distance between last and first position in our buffer
+						double distance = cheapRuler.Distance(
+							new double[] { newestPos.y, newestPos.x },
+							new double[] { oldestPos.y, oldestPos.x }
+						);
+						// positions are minimum required distance apart (user is moving), calculate user heading
+						if (distance >= _minDistanceOldestNewestPosition)
+						{
+							float[] lastHeadings = new float[_maxLastPositions - 1];
+
+							for (int i = 1; i < _maxLastPositions; i++)
+							{
+								// atan2 increases angle CCW, flip sign of latDiff to get CW
+								double latDiff = -(_lastPositions[i].x - _lastPositions[i - 1].x);
+								double lngDiff = _lastPositions[i].y - _lastPositions[i - 1].y;
+								// +90.0 to make top (north) 0°
+								double heading = (Math.Atan2(latDiff, lngDiff) * 180.0 / Math.PI) + 90.0f;
+								// stay within [0..360]° range
+								if (heading < 0) { heading += 360; }
+								if (heading >= 360) { heading -= 360; }
+								lastHeadings[i - 1] = (float)heading;
+							}
+
+							_userHeadingSmoothing.Add(lastHeadings[0]);
+							float finalHeading = (float)_userHeadingSmoothing.Calculate();
+
+							//fix heading to have 0° for north, 90° for east, 180° for south and 270° for west
+							finalHeading = finalHeading >= 180.0f ? finalHeading - 180.0f : finalHeading + 180.0f;
+
+
+							WPSCompass._currentLocation.UserHeading = finalHeading;
+							WPSCompass._currentLocation.IsUserHeadingUpdated = true;
+						}
+					}
+
+					WPSCompass._currentLocation.TimestampDevice = UnixTimestampUtils.To(DateTime.UtcNow);
+					SendLocation(WPSCompass._currentLocation);
+
+					yield return _waitUpdateTime;
+				}
 			}
 		}
 	}

@@ -19,6 +19,9 @@ public class WPSCompassProvider : MonoBehaviour
     public Vector2d LatitudeLongitude;
     Quaternion q;
     public Location _currentLocation;
+    public Vector2d lastData;
+    public double timestamp;
+    //public float lastHorzAcc;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +39,10 @@ public class WPSCompassProvider : MonoBehaviour
         LatitudeLongitude = new Vector2d(latitude, longitude);
         altitude = _WPSCameraHelper.Altitude;
 
+         lastData = _currentLocation.LatitudeLongitude;
         _currentLocation.LatitudeLongitude = LatitudeLongitude;
+        //_currentLocation.horizontalAccuracy = 
+
 
         q = _WPSCameraHelper.RotationCameraRUFToWorldEUN;
     }
