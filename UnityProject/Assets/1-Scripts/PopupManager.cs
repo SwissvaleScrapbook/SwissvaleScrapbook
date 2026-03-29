@@ -23,13 +23,13 @@ public class PopupManager : MonoBehaviour
     // adding references to storystack and story detail panels so we can enable/disable them as needed
     [SerializeField] private GameObject storyStackPanel;
     // [SerializeField] private GameObject storyDetailPanel;
-    [SerializeField] private GameObject storyCardPrefab; 
+    [SerializeField] private GameObject storyCardPrefab;
     [SerializeField] private GameObject storyDetailCanvas;
 
     // adding ref to title and body
     [Header("Story Detail")]
-[SerializeField] private TextMeshProUGUI detailTitle;
-[SerializeField] private TextMeshProUGUI detailBody;
+    [SerializeField] private TextMeshProUGUI detailTitle;
+    [SerializeField] private TextMeshProUGUI detailBody;
 
     private Image backgroundImage;
     private CanvasGroup backgroundCanvasGroup;
@@ -53,8 +53,8 @@ public class PopupManager : MonoBehaviour
 
         backgroundImage = background.GetComponent<Image>();
     }
-    
-   public void OpenStory(StoryCard card)
+
+    public void OpenStory(StoryCard card)
     {
         Debug.Log("OpenStory called! Title: " + card.storyTitle); // TEST
         //currentCard = card;
@@ -65,29 +65,29 @@ public class PopupManager : MonoBehaviour
         storyStackPanel.GetComponent<StoryStackManager>().currentCard = card;
 
         // Hide main popup elements
-    background.SetActive(false);
-    locationName.SetActive(false);
-    closeButton.SetActive(false);
-    storyStackPanel.SetActive(false);
+        background.SetActive(false);
+        locationName.SetActive(false);
+        closeButton.SetActive(false);
+        storyStackPanel.SetActive(false);
 
-    // Show detail panel
-    storyDetailCanvas.SetActive(true);
+        // Show detail panel
+        storyDetailCanvas.SetActive(true);
 
-     Debug.Log("StoryDetailPanel active: " + storyDetailCanvas.activeSelf);
-    Debug.Log("Background active: " + storyDetailCanvas.transform.Find("Background").gameObject.activeSelf);
-    Debug.Log("TitleText: " + detailTitle.text);
+        Debug.Log("StoryDetailPanel active: " + storyDetailCanvas.activeSelf);
+        Debug.Log("Background active: " + storyDetailCanvas.transform.Find("Background").gameObject.activeSelf);
+        Debug.Log("TitleText: " + detailTitle.text);
     }
 
     public void CloseStory()
-{
-    background.SetActive(true);
-    locationName.SetActive(true);
-    closeButton.SetActive(true);
-    storyStackPanel.SetActive(true);
-    storyDetailCanvas.SetActive(false);
+    {
+        background.SetActive(true);
+        locationName.SetActive(true);
+        closeButton.SetActive(true);
+        storyStackPanel.SetActive(true);
+        storyDetailCanvas.SetActive(false);
 
-    storyStackPanel.GetComponent<StoryStackManager>().SendCurrentCardToBack();
-}
+        storyStackPanel.GetComponent<StoryStackManager>().SendCurrentCardToBack();
+    }
 
 
 
@@ -95,7 +95,7 @@ public class PopupManager : MonoBehaviour
     {
         locationName.GetComponent<TextMeshProUGUI>().text = mapMarker.GetComponent<LocationMarker>().locationData.locationName;
         SetStories(mapMarker);
-        DisplayStories(); 
+        DisplayStories();
         canvas.SetActive(true);
     }
 
@@ -113,63 +113,64 @@ public class PopupManager : MonoBehaviour
     }
 
     private void DisplayStories()
-{
-    // Clear any existing cards from a previous location
-    foreach (Transform child in storyStackPanel.transform)
     {
-        Destroy(child.gameObject);
-    }
-
-    // Instantiate a card for each story in the list
-    foreach (StoryCard story in stories)
-    {
-        GameObject newCard = Instantiate(storyCardPrefab, storyStackPanel.transform);
-        StoryCard newStoryCard = newCard.GetComponent<StoryCard>();
-
-        if (newStoryCard == null)
+        // Clear any existing cards from a previous location
+        foreach (Transform child in storyStackPanel.transform)
         {
-            Debug.LogError("StoryCard component not found on prefab!");
-            continue;
+            Destroy(child.gameObject);
         }
 
-        newStoryCard.storyTitle = story.storyTitle;
-        newStoryCard.storyBody = story.storyBody;
+        // Instantiate a card for each story in the list
+        foreach (StoryCard story in stories)
+        {
+            GameObject newCard = Instantiate(storyCardPrefab, storyStackPanel.transform);
+            StoryCard newStoryCard = newCard.GetComponent<StoryCard>();
 
-        // Update the visible title label on the card
-        TextMeshProUGUI label = newCard.GetComponentInChildren<TextMeshProUGUI>();
-        if (label != null)
-            label.text = story.storyTitle;
+            if (newStoryCard == null)
+            {
+                Debug.LogError("StoryCard component not found on prefab!");
+                continue;
+            }
+
+            newStoryCard.storyTitle = story.storyTitle;
+            newStoryCard.storyBody = story.storyBody;
+
+            // Update the visible title label on the card
+            TextMeshProUGUI label = newCard.GetComponentInChildren<TextMeshProUGUI>();
+            if (label != null)
+                label.text = story.storyTitle;
+        }
+
+        // Tell StoryStackManager to re-arrange the stack with the new cards
+        StartCoroutine(RefreshStackNextFrame());
     }
 
-    // Tell StoryStackManager to re-arrange the stack with the new cards
-    StartCoroutine(RefreshStackNextFrame());
-}
-
-private IEnumerator RefreshStackNextFrame()
-{
-    yield return null;
-    storyStackPanel.GetComponent<StoryStackManager>().RefreshStack();
-}
-
-// for close button to work
-
-    public void HideLocationPopup() {
-    Debug.Log("HideLocationPopup called!"); 
-    Debug.Log("HideLocationPopup called from: " + System.Environment.StackTrace);
-{
-    foreach (Transform child in storyStackPanel.transform)
+    private IEnumerator RefreshStackNextFrame()
     {
-        Destroy(child.gameObject);
+        yield return null;
+        storyStackPanel.GetComponent<StoryStackManager>().RefreshStack();
     }
 
-    background.SetActive(true);
-    locationName.SetActive(true);
-    closeButton.SetActive(true);
-    storyDetailCanvas.SetActive(false);
-    storyStackPanel.SetActive(true);
+    // for close button to work
 
-    canvas.SetActive(false);
-}
+    public void HideLocationPopup()
+    {
+        Debug.Log("HideLocationPopup called!");
+        Debug.Log("HideLocationPopup called from: " + System.Environment.StackTrace);
+        {
+            foreach (Transform child in storyStackPanel.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            background.SetActive(true);
+            locationName.SetActive(true);
+            closeButton.SetActive(true);
+            storyDetailCanvas.SetActive(false);
+            storyStackPanel.SetActive(true);
+
+            canvas.SetActive(false);
+        }
     }
 
 
