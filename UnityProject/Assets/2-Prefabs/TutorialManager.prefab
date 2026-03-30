@@ -2280,8 +2280,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'This is an interactive augmented reality app designed to take you around
-    Swissvale to explore the history of different areas of interest.
+  m_text: 'This is an interactive app designed to take you around Swissvale to explore
+    the history of different areas of interest.
 
 '
   m_isRightToLeft: 0
