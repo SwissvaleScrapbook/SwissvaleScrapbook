@@ -79,7 +79,7 @@ namespace Mapbox.Unity.Location
 
 		private IMapboxLocationService _mockLocationService;
 
-		private NianticSpatial.NSDK.AR.LocationService _locationService;
+		//private NianticSpatial.NSDK.AR.LocationService _mapboxLocationService;
 
 		private IMapboxLocationService _mapboxLocationService;
 
@@ -92,10 +92,11 @@ namespace Mapbox.Unity.Location
 		// TODO: show message to users in case they accidentallly denied permission
 #if UNITY_ANDROID
 			private bool _gotPermissionRequestResponse = false;
+			private bool _fineLocationAllowed = false;
 
-			private void OnAllow() { _gotPermissionRequestResponse = true; }
-			private void OnDeny() { _gotPermissionRequestResponse = true; }
-			private void OnDenyAndNeverAskAgain() { _gotPermissionRequestResponse = true; }
+			private void OnAllow() { _gotPermissionRequestResponse = true; _fineLocationAllowed = true; }
+			private void OnDeny() { _gotPermissionRequestResponse = true; _fineLocationAllowed = false; }
+			private void OnDenyAndNeverAskAgain() { _gotPermissionRequestResponse = true; _fineLocationAllowed = false; }
 #endif
 
 
@@ -121,8 +122,9 @@ namespace Mapbox.Unity.Location
 #endif
 			if (usingEditor == false)
 			{
-				//_locationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
+				//_mapboxLocationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
 				WPSCompass.positioningManager = positioningManager;
+				_currentLocation.Provider = "unity";
 			}
 
 			_currentLocation.Provider = "unity";
@@ -168,7 +170,7 @@ namespace Mapbox.Unity.Location
 
 			//request runtime fine location permission on Android if not yet allowed
 #if UNITY_ANDROID
-			if (!_locationService.isEnabledByUser)
+			if (!_fineLocationAllowed)
 			{
 				UniAndroidPermission.RequestPermission(AndroidPermission.ACCESS_FINE_LOCATION);
 				//wait for user to allow or deny
@@ -177,7 +179,7 @@ namespace Mapbox.Unity.Location
 #endif
 
 
-			if (_locationService.isEnabledByUser)
+			if (_fineLocationAllowed)
 			{
 				WPSCompass._currentLocation.IsLocationServiceEnabled = true;
 				_currentLocation.IsLocationServiceEnabled = false;
@@ -199,11 +201,11 @@ namespace Mapbox.Unity.Location
 			if (!WPSCompass._currentLocation.IsLocationServiceEnabled)
 			{
 				_currentLocation.IsLocationServiceInitializing = true;
-				_locationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
+				_mapboxLocationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
 				Input.compass.enabled = true;
 
 				int maxWait = 20;
-				while (_locationService.status == LocationServiceStatus.Initializing && maxWait > 0)
+				while (_mapboxLocationService.status == LocationServiceStatus.Initializing && maxWait > 0)
 				{
 					yield return _wait1sec;
 					maxWait--;
@@ -218,7 +220,7 @@ namespace Mapbox.Unity.Location
 					yield break;
 				}
 
-				if (_locationService.status == LocationServiceStatus.Failed)
+				if (_mapboxLocationService.status == LocationServiceStatus.Failed)
 				{
 					Debug.LogError("DeviceLocationProvider: " + "Failed to initialize location services!");
 					_currentLocation.IsLocationServiceInitializing = false;
@@ -240,7 +242,7 @@ namespace Mapbox.Unity.Location
 				while (true)
 				{
 
-					var lastData = _locationService.lastData;
+					var lastData = _mapboxLocationService.lastData;
 					var timestamp = lastData.timestamp;
 
 					///////////////////////////////
@@ -251,7 +253,7 @@ namespace Mapbox.Unity.Location
 					//////////////////////////////
 					//Debug.LogFormat("Input.location.status: {0}", Input.location.status);
 					_currentLocation.IsLocationServiceEnabled =
-						_locationService.status == LocationServiceStatus.Running
+						_mapboxLocationService.status == LocationServiceStatus.Running
 						|| timestamp > _lastLocationTimestamp;
 
 					_currentLocation.IsUserHeadingUpdated = false;
@@ -365,11 +367,11 @@ namespace Mapbox.Unity.Location
 			else if (WPSCompass._currentLocation.IsLocationServiceEnabled)
             {
 				WPSCompass._currentLocation.IsLocationServiceInitializing = true;
-				_locationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
+				_mapboxLocationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
 				Input.compass.enabled = true;
 
 				int maxWait = 20;
-				while (_locationService.status == LocationServiceStatus.Initializing && maxWait > 0)
+				while (_mapboxLocationService.status == LocationServiceStatus.Initializing && maxWait > 0)
 				{
 					yield return _wait1sec;
 					maxWait--;
@@ -384,7 +386,7 @@ namespace Mapbox.Unity.Location
 					yield break;
 				}
 
-				if (_locationService.status == LocationServiceStatus.Failed)
+				if (_mapboxLocationService.status == LocationServiceStatus.Failed)
 				{
 					Debug.LogError("DeviceLocationProvider: " + "Failed to initialize location services!");
 					WPSCompass._currentLocation.IsLocationServiceInitializing = false;
@@ -417,7 +419,7 @@ namespace Mapbox.Unity.Location
 					//////////////////////////////
 					//Debug.LogFormat("Input.location.status: {0}", Input.location.status);
 					WPSCompass._currentLocation.IsLocationServiceEnabled =
-						_locationService.status == LocationServiceStatus.Running
+						_mapboxLocationService.status == LocationServiceStatus.Running
 						|| timestamp > _lastLocationTimestamp;
 
 					WPSCompass._currentLocation.IsUserHeadingUpdated = false;
