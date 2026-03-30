@@ -19,6 +19,9 @@ public class TutorialManager : MonoBehaviour
     public GameObject recenterButton;
     public GameObject mapButton;
 
+    [Header("Flags")]
+    public bool storyClicked = false;
+
     void Awake()
     {
         instance = this;
