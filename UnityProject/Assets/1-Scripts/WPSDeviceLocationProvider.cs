@@ -102,6 +102,7 @@ namespace Mapbox.Unity.Location
 
 		protected virtual void Awake()
 		{
+			Debug.Log("1");
 #if UNITY_EDITOR
 			usingEditor = true;
 			if (_editorDebuggingOnly._mockUnityInputLocation)
@@ -116,41 +117,55 @@ namespace Mapbox.Unity.Location
 			else
 			{
 #endif
+				Debug.Log("2Is this activating here");
 				_mapboxLocationService = new MapboxLocationServiceUnityWrapper();
 #if UNITY_EDITOR
 			}
 #endif
 			if (usingEditor == false)
 			{
+				Debug.Log("3");
 				//_mapboxLocationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
 				WPSCompass.positioningManager = positioningManager;
 				_currentLocation.Provider = "unity";
+				Debug.Log("4");
 			}
 
+			Debug.Log("5");
 			_currentLocation.Provider = "unity";
 			_wait1sec = new WaitForSeconds(1f);
 			_waitUpdateTime = _updateTimeInMilliSeconds < 500 ? new WaitForSeconds(0.5f) : new WaitForSeconds((float)_updateTimeInMilliSeconds / 1000.0f);
+			Debug.Log("6");
 
 			if (null == _userHeadingSmoothing) { _userHeadingSmoothing = transform.gameObject.AddComponent<AngleSmoothingNoOp>(); }
+			Debug.Log("7");
 			if (null == _deviceOrientationSmoothing) { _deviceOrientationSmoothing = transform.gameObject.AddComponent<AngleSmoothingNoOp>(); }
+			Debug.Log("8");
 
 			_lastPositions = new CircularBuffer<Vector2d>(_maxLastPositions);
+			Debug.Log("9");
 
 			if (_pollRoutine == null)
 			{
 				// TODO: come back to this and implement PollLocationRoutine
+				Debug.Log("10");
 				_pollRoutine = StartCoroutine(PollLocationRoutine());
+				Debug.Log("11");
 			}
+			Debug.Log("12");
 		}
 
 		protected virtual void Start()
         {
+			Debug.Log("A1");
 			cameraHelper = positioningManager.DefaultCameraHelper;
-        }
+			Debug.Log("A2");
+		}
 
 		IEnumerator PollLocationRoutine()
 		{
 #if UNITY_EDITOR
+			Debug.Log("10.1 (shouldnt be logged)");
 			while (!UnityEditor.EditorApplication.isRemoteConnected)
 			{
 				// exit if we are not the selected location provider
@@ -165,32 +180,44 @@ namespace Mapbox.Unity.Location
 				Debug.LogWarning("Remote device not connected via 'Unity Remote'. Waiting ..." + Environment.NewLine + "If Unity seems to be stuck here make sure 'Unity Remote' is running and restart Unity with your device already connected.");
 				yield return _wait1sec;
 			}
+			Debug.Log("10.2 (shouldnt be logged)");
 #endif
 
 
 			//request runtime fine location permission on Android if not yet allowed
+			Debug.Log("10.3");
 #if UNITY_ANDROID
+			Debug.Log("10.4");
 			if (!_fineLocationAllowed)
 			{
+				Debug.Log("10.5");
 				UniAndroidPermission.RequestPermission(AndroidPermission.ACCESS_FINE_LOCATION);
 				//wait for user to allow or deny
+				Debug.Log("10.6");
 				while (!_gotPermissionRequestResponse) { yield return _wait1sec; }
+				Debug.Log("10.7");
 			}
 #endif
 
-
+			Debug.Log("10.8");
 			if (_fineLocationAllowed)
 			{
+				Debug.Log("10.9");
 				WPSCompass._currentLocation.IsLocationServiceEnabled = true;
 				_currentLocation.IsLocationServiceEnabled = false;
+				Debug.Log("10.9.1");
 			}
 			else
             {
+				Debug.Log("10.9.2");
 				Debug.LogWarning("DeviceLocationProvider: Location is not enabled by user! Attempting to use GPS instead.");
 				WPSCompass._currentLocation.IsLocationServiceEnabled = false;
+				Debug.Log("10.9.3");
 				if (_mapboxLocationService.isEnabledByUser)
 				{
+					Debug.Log("10.9.4");
 					_currentLocation.IsLocationServiceEnabled = true;
+					Debug.Log("10.9.5");
 				}
 				else
 				{
@@ -198,11 +225,16 @@ namespace Mapbox.Unity.Location
 				}
 			}
 
+			Debug.Log("10.9.6");
 			if (!WPSCompass._currentLocation.IsLocationServiceEnabled)
 			{
+				Debug.Log("10.9.7");
 				_currentLocation.IsLocationServiceInitializing = true;
+				Debug.Log("10.9.8");
 				_mapboxLocationService.Start(_desiredAccuracyInMeters, _updateDistanceInMeters);
+				Debug.Log("10.9.9");
 				Input.compass.enabled = true;
+				Debug.Log("10.9.10");
 
 				int maxWait = 20;
 				while (_mapboxLocationService.status == LocationServiceStatus.Initializing && maxWait > 0)
