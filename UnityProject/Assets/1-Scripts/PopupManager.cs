@@ -56,7 +56,6 @@ public class PopupManager : MonoBehaviour
 
     public void OpenStory(StoryCard card)
     {
-        Debug.Log("OpenStory called! Title: " + card.storyTitle); // TEST
         //currentCard = card;
         detailTitle.text = card.storyTitle;
         detailBody.text = card.storyBody;
@@ -72,10 +71,6 @@ public class PopupManager : MonoBehaviour
 
         // Show detail panel
         storyDetailCanvas.SetActive(true);
-
-        Debug.Log("StoryDetailPanel active: " + storyDetailCanvas.activeSelf);
-        Debug.Log("Background active: " + storyDetailCanvas.transform.Find("Background").gameObject.activeSelf);
-        Debug.Log("TitleText: " + detailTitle.text);
     }
 
     public void CloseStory()

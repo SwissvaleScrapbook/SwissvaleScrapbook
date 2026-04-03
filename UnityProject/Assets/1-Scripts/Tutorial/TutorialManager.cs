@@ -73,6 +73,8 @@ public class TutorialManager : MonoBehaviour
         }
         else
         {
+            UnityEngine.Debug.Log("ADVANCED TUTORIAL! Step: " + currentStepIndex);
+
             // Disable current step
             tutorialSteps[currentStepIndex].SetActive(false);
 
@@ -105,12 +107,4 @@ public class TutorialManager : MonoBehaviour
             PopupManager.instance.ShowLocationPopup(tutorialLocation);
         }
     }
-
-    public void ShowStoryPopup()
-    {
-        PopupManager.instance.OpenStory(tutorialLocation.GetComponent<LocationData>().storyList[0]);
-
-    }
-
-
 }

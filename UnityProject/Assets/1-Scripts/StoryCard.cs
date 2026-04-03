@@ -12,14 +12,19 @@ public class StoryCard : MonoBehaviour
 
     public void TutorialOnCardClicked()
     {
-        if(TutorialManager.instance.storyClicked)
-        {
-            Debug.LogWarning("Story card already clicked. Ignoring click.");
-            return;
-        }
+        Debug.Log("HIIIIIIIIIIIIIIIIIIIIIII!");
+
+        // if(TutorialManager.instance.storyClicked)
+        // {
+        //     UnityEngine.Debug.Log("Story card already clicked. Ignoring click.");
+        //     return;
+        // }
+
+        // Debug.Log("IN STORY CARD -- advancing!");
         
-        PopupManager.instance.OpenStory(this);
-        TutorialManager.instance.AdvanceTutorial();
-        TutorialManager.instance.storyClicked = true;
+        // PopupManager.instance.OpenStory(this);
+        // TutorialManager.instance.AdvanceTutorial();
+        // TutorialManager.instance.storyClicked = true;
+        
     }
 }

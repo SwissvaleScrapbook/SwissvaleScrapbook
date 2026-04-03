@@ -1517,18 +1517,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentCard: {fileID: 0}
---- !u!114 &854799428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 854799425}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60a76521a4bc44756b5777ea65f0dc40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DebugStory
 --- !u!1 &941736034
 GameObject:
   m_ObjectHideFlags: 0
@@ -3762,9 +3750,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4242388318858530111, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 854799427}
-    - targetCorrespondingSourceObject: {fileID: 4242388318858530111, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 854799428}
   m_SourcePrefab: {fileID: 100100000, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
 --- !u!1001 &8733871086460668498
 PrefabInstance:
