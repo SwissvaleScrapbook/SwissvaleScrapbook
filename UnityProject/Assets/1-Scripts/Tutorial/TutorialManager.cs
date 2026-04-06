@@ -20,7 +20,10 @@ public class TutorialManager : MonoBehaviour
     public GameObject mapButton;
 
     [Header("Flags")]
+    public bool locationClicked = false;
     public bool storyClicked = false;
+    public bool backClicked = false;
+    public bool closeClicked = false;
 
     void Awake()
     {
@@ -57,18 +60,8 @@ public class TutorialManager : MonoBehaviour
         if(currentStepIndex >= tutorialSteps.Count - 1)
         {
             UnityEngine.Debug.LogWarning("No more tutorial steps to advance to.");
-
             tutorialSteps[currentStepIndex].SetActive(false);
-
-
-            // If there are no steps left, disable the entire tutorial
-            allLocations.SetActive(true);
-            tutorialObj.SetActive(false);
-            tutorialLocation.SetActive(false);
-            player.SetActive(true);
-            recenterButton.SetActive(true);
-            mapButton.SetActive(true);
-
+            EndTutorial();
             return;
         }
         else
@@ -89,6 +82,13 @@ public class TutorialManager : MonoBehaviour
 
     public void SkipTutorial()
     {
+       EndTutorial();
+    }
+
+    public void EndTutorial()
+    {
+        UnityEngine.Debug.Log("Tutorial ended. Enabling all scene objects and disabling tutorial.");
+
         // Disable TutorialManager
         tutorialObj.SetActive(false);
         tutorialLocation.SetActive(false);
@@ -98,6 +98,11 @@ public class TutorialManager : MonoBehaviour
         player.SetActive(true);
         recenterButton.SetActive(true);
         mapButton.SetActive(true);
+
+        // Delete the gameobject and set instance to null
+        Destroy(this.gameObject);
+        Destroy(tutorialLocation);
+        instance = null;
     }
 
     public void ShowLocationPopup()

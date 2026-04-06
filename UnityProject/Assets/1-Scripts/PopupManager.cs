@@ -84,6 +84,21 @@ public class PopupManager : MonoBehaviour
         storyStackPanel.GetComponent<StoryStackManager>().SendCurrentCardToBack();
     }
 
+    public void TutorialCloseStory()
+    {
+        if(TutorialManager.instance == null)
+        {
+            UnityEngine.Debug.Log("TutorialManager instance not found. Proceeding with normal close story behavior.");
+            return;
+        }
+        
+        if(TutorialManager.instance.backClicked || !TutorialManager.instance.storyClicked) return;
+        
+        TutorialManager.instance.AdvanceTutorial();
+        TutorialManager.instance.backClicked = true;
+        
+    }
+
 
 
     public void ShowLocationPopup(GameObject mapMarker)
@@ -166,6 +181,20 @@ public class PopupManager : MonoBehaviour
 
             canvas.SetActive(false);
         }
+    }
+
+    public void TutorialHideLocationPopup()
+    {
+        if(TutorialManager.instance == null)
+        {
+            UnityEngine.Debug.Log("TutorialManager instance not found. Proceeding with normal hide location popup behavior.");
+            return;
+        }
+        
+        if(TutorialManager.instance.closeClicked || !TutorialManager.instance.backClicked || !TutorialManager.instance.storyClicked) return;
+        
+        TutorialManager.instance.AdvanceTutorial();
+        TutorialManager.instance.closeClicked = true;
     }
 
 
