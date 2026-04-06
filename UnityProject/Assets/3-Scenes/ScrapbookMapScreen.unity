@@ -1539,7 +1539,7 @@ PrefabInstance:
     - target: {fileID: 114467468983267246, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _editorLocationProvider
       value: 
-      objectReference: {fileID: 485753851}
+      objectReference: {fileID: 0}
     - target: {fileID: 114467468983267246, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       propertyPath: _transformLocationProvider
       value: 
@@ -1642,10 +1642,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 1491795049829526, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
     - {fileID: 1514120829208204, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4961856903295740, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 582204345}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1094528686802348, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       insertIndex: -1
@@ -1653,81 +1650,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1094528686802348, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1472087805}
-    - targetCorrespondingSourceObject: {fileID: 1065618987163410, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 843921215}
-    - targetCorrespondingSourceObject: {fileID: 1065618987163410, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 843921212}
-    - targetCorrespondingSourceObject: {fileID: 1065618987163410, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 843921216}
   m_SourcePrefab: {fileID: 100100000, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
 --- !u!4 &843921208 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4961856903295740, guid: 35ce2bb4caba9434db5e656796b632b1, type: 3}
   m_PrefabInstance: {fileID: 843921207}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &843921212
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603876967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2de1901f61f14d5d82076230316d3dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerTrigger
---- !u!65 &843921215
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603876967}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 7.22, z: 2}
-  m_Center: {x: 0, y: 2.86, z: 0}
---- !u!54 &843921216
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603876967}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!1 &851820742
 GameObject:
   m_ObjectHideFlags: 0
@@ -2219,7 +2147,7 @@ MonoBehaviour:
   _mapManager: {fileID: 1472087803}
   _useDegreeMethod: 0
   RecenterButton: {fileID: 342228949}
-  player: {fileID: 603876967}
+  player: {fileID: 0}
 --- !u!114 &1472087805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2268,7 +2196,7 @@ Transform:
   m_LocalScale: {x: 0.22, y: 0.29, z: 1.35}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 582204345}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 23.28, z: 0}
 --- !u!65 &1473036514
 BoxCollider:
@@ -3043,6 +2971,18 @@ MonoBehaviour:
       - m_Target: {fileID: 148962067}
         m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
         m_MethodName: CloseStory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 148962067}
+        m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
+        m_MethodName: TutorialCloseStory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4030,10 +3970,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
@@ -4041,7 +3985,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 148962067}
     - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 148962067}
+    - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
@@ -4049,11 +4001,23 @@ PrefabInstance:
       value: HideLocationPopup
       objectReference: {fileID: 0}
     - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: TutorialHideLocationPopup
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PopupManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PopupManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3612936376209553229, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3774012829324271975, guid: 3a22f8a1b8a3c4f45b29c2fba0b64e6d, type: 3}
@@ -4434,3 +4398,5 @@ SceneRoots:
   - {fileID: 6546937744959770908}
   - {fileID: 268657855725102434}
   - {fileID: 1923576285321577126}
+  - {fileID: 843921207}
+  - {fileID: 1473036513}
