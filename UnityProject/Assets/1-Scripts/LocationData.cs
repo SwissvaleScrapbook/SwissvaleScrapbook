@@ -10,14 +10,6 @@ public class ImageObject
 }
 
 [Serializable]
-public class StoryObject
-{
-    public string title;
-    public List<string> quotes = new List<string>();
-    public List<AudioClip> audioFiles = new List<AudioClip>();    
-}
-
-[Serializable]
 public class LocationData
 {
     [Header("Location Settings")]
