@@ -13,11 +13,17 @@ public class TutorialManager : MonoBehaviour
     private int currentStepIndex = 0;
 
     [Header("Scene Objects")]
-    public GameObject location;
+    public GameObject tutorialLocation;
     public GameObject allLocations;
     public GameObject player;
     public GameObject recenterButton;
     public GameObject mapButton;
+
+    [Header("Flags")]
+    public bool locationClicked = false;
+    public bool storyClicked = false;
+    public bool backClicked = false;
+    public bool closeClicked = false;
 
     void Awake()
     {
@@ -42,7 +48,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         // Disable all scene objects
-        location.SetActive(false);
+        tutorialLocation.SetActive(false);
         allLocations.SetActive(false);
         player.SetActive(false);
         recenterButton.SetActive(false);
@@ -54,22 +60,14 @@ public class TutorialManager : MonoBehaviour
         if(currentStepIndex >= tutorialSteps.Count - 1)
         {
             UnityEngine.Debug.LogWarning("No more tutorial steps to advance to.");
-
             tutorialSteps[currentStepIndex].SetActive(false);
-
-
-            // If there are no steps left, disable the entire tutorial
-            allLocations.SetActive(true);
-            tutorialObj.SetActive(false);
-            location.SetActive(false);
-            player.SetActive(true);
-            recenterButton.SetActive(true);
-            mapButton.SetActive(true);
-
+            EndTutorial();
             return;
         }
         else
         {
+            UnityEngine.Debug.Log("ADVANCED TUTORIAL! Step: " + currentStepIndex);
+
             // Disable current step
             tutorialSteps[currentStepIndex].SetActive(false);
 
@@ -82,50 +80,36 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    // public void AdvanceTutorialToStep(int step)
-    // {
-    //     if(step < 0 || step >= tutorialSteps.Count)
-    //     {
-    //         UnityEngine.Debug.LogError("Invalid tutorial step index: " + step);
-    //         return;
-    //     }
-
-    //     // Disable current step
-    //     tutorialSteps[currentStepIndex].SetActive(false);
-
-    //     // Set specified step index
-    //     currentStepIndex = step;
-
-    //     // Set next step to active
-    //     tutorialSteps[currentStepIndex].SetActive(true);
-    // }
-
     public void SkipTutorial()
     {
+       EndTutorial();
+    }
+
+    public void EndTutorial()
+    {
+        UnityEngine.Debug.Log("Tutorial ended. Enabling all scene objects and disabling tutorial.");
+
         // Disable TutorialManager
         tutorialObj.SetActive(false);
-        location.SetActive(false);
+        tutorialLocation.SetActive(false);
 
         // Enable all scene objects
         allLocations.SetActive(true);
         player.SetActive(true);
         recenterButton.SetActive(true);
         mapButton.SetActive(true);
+
+        // Delete the gameobject and set instance to null
+        Destroy(this.gameObject);
+        Destroy(tutorialLocation);
+        instance = null;
     }
 
     public void ShowLocationPopup()
     {
-        if(location != null)
+        if(tutorialLocation != null)
         {
-            PopupManager.instance.ShowLocationPopup(location);
+            PopupManager.instance.ShowLocationPopup(tutorialLocation);
         }
     }
-
-    public void ShowStoryPopup()
-    {
-        PopupManager.instance.OpenStory(location.GetComponent<LocationData>().storyList[0]);
-
-    }
-
-
 }
