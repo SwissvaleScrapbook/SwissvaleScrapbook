@@ -1,3 +1,118 @@
+/*
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+[System.Serializable]
+public class StoryJSON
+{
+    public string title;
+    public string body;
+}
+
+[System.Serializable]
+public class LocationJSON
+{
+    public double latitude;
+    public double longitude;
+    public string locationName;
+    public List<StoryJSON> stories;
+}
+
+[System.Serializable]
+public class LocationJSONList
+{
+    public List<LocationJSON> locations;
+}
+
+[System.Serializable]
+public class LocationDataList
+{
+    public List<LocationData> locations;
+}
+
+public class LocationPlacer : MonoBehaviour
+{
+    [SerializeField] private GameObject markerPrefab;
+
+    private Vector3 y_increase = new Vector3(0, 10f, 0);
+
+
+    List<GameObject> _spawnedObjects = new List<GameObject>();
+    void Start()
+    {
+        LoadLocations();
+    }
+
+    void Update()
+    {
+        
+        // Keep markers raised above ground
+        foreach (Transform child in transform)
+        {
+            child.position = new Vector3(child.position.x, 10f, child.position.z);
+        }
+    }
+
+    private void LoadLocations()
+{
+    string path = Path.Combine(Application.streamingAssetsPath, "swissvale_locations.json");
+
+    if (!File.Exists(path))
+    {
+        Debug.LogError("LocationPlacer: JSON file not found at " + path);
+        return;
+    }
+
+    string json = File.ReadAllText(path);
+    LocationJSONList locationJSONList = JsonUtility.FromJson<LocationJSONList>(json);
+
+    Debug.Log("Raw JSON: " + json);
+    Debug.Log("Locations parsed: " + locationJSONList.locations.Count);
+    Debug.Log("Stories in location 0: " + locationJSONList.locations[0].stories.Count);
+
+    if (locationJSONList == null || locationJSONList.locations == null)
+    {
+        Debug.LogError("LocationPlacer: Failed to parse JSON");
+        return;
+    }
+
+    for (int i = 0; i < locationJSONList.locations.Count; i++)
+    {
+        if (markerPrefab == null)
+        {
+            Debug.LogError("LocationPlacer: Marker prefab not assigned!");
+            return;
+        }
+
+        LocationJSON data = locationJSONList.locations[i];
+        GameObject marker = Instantiate(markerPrefab, transform);
+        LocationMarker locationMarker = marker.GetComponent<LocationMarker>();
+
+        if (locationMarker != null)
+        {
+            locationMarker.locationData.latitude = data.latitude;
+            locationMarker.locationData.longitude = data.longitude;
+            locationMarker.locationData.locationName = data.locationName;
+
+            // Convert StoryJSON to StoryObject
+            locationMarker.locationData.storyList = new List<StoryCard>();
+            foreach (StoryJSON s in data.stories)
+            {
+                StoryCard story = new StoryCard();
+                story.storyTitle = s.title;
+                story.storyBody = s.body;
+                locationMarker.locationData.storyList.Add(story);
+            }
+        }
+    }
+}
+
+      
+}
+*/
+
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -7,8 +122,8 @@ using Mapbox.Unity.Map;
 [System.Serializable]
 public class StoryJSON
 {
-    public string title_text;
-    public string body_text;
+    public string title;
+    public string body;
 }
 
 [System.Serializable]
@@ -16,8 +131,8 @@ public class LocationJSON
 {
     public double latitude;
     public double longitude;
-    public string location_name;
-    public List<StoryJSON> STORIES;
+    public string locationName;
+    public List<StoryJSON> stories;
 }
 
 [System.Serializable]
@@ -35,7 +150,7 @@ public class LocationDataList
 public class LocationPlacer : MonoBehaviour
 {
     [SerializeField] private AbstractMap _map;
-    [SerializeField] private GameObject markerPrefab;
+    [SerializeField] private GameObject markerPrefab; 
     [SerializeField] private float _spawnScale = 1f;
 
     private readonly Vector3 y_increase = new Vector3(0, 10f, 0);
@@ -63,7 +178,7 @@ public class LocationPlacer : MonoBehaviour
 
     private void LoadLocations()
     {
-        string path = Path.Combine(Application.streamingAssetsPath, "locations.json");
+        string path = Path.Combine(Application.streamingAssetsPath, "swissvale_locations.json");
 
         if (!File.Exists(path))
         {
@@ -72,11 +187,7 @@ public class LocationPlacer : MonoBehaviour
         }
 
         string json = File.ReadAllText(path);
-
-        // Wrap raw array for JsonUtility
-        string wrapped = $"{{\"locations\":{json}}}";
-        LocationJSONList locationJSONList = JsonUtility.FromJson<LocationJSONList>(wrapped);
-
+        LocationJSONList locationJSONList = JsonUtility.FromJson<LocationJSONList>(json);
 
         if (locationJSONList == null || locationJSONList.locations == null)
         {
@@ -88,7 +199,7 @@ public class LocationPlacer : MonoBehaviour
 
         for (int i = 0; i < locationJSONList.locations.Count; i++)
         {
-            if (markerPrefab == null)
+            if (markerPrefab ==null)
             {
                 Debug.LogWarning("LocationPlacer: no prefab for location index " + i + ", skipping.");
                 break;
@@ -101,7 +212,7 @@ public class LocationPlacer : MonoBehaviour
             var latLon = new Vector2d(data.latitude, data.longitude);
             marker.transform.localPosition = _map.GeoToWorldPosition(latLon, true) + y_increase;
             marker.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
+        
 
             // Wire up LocationData on the marker
             LocationMarker locationMarker = marker.GetComponent<LocationMarker>();
@@ -109,16 +220,16 @@ public class LocationPlacer : MonoBehaviour
             {
                 locationMarker.locationData.latitude = data.latitude;
                 locationMarker.locationData.longitude = data.longitude;
-                locationMarker.locationData.locationName = data.location_name;
+                locationMarker.locationData.locationName = data.locationName;
 
 
                 // Convert StoryJSON -> StoryObject
                 locationMarker.locationData.storyList = new List<StoryCard>();
-                foreach (StoryJSON s in data.STORIES)
+                foreach (StoryJSON s in data.stories)
                 {
                     StoryCard story = new StoryCard();
-                    story.storyTitle = s.title_text;
-                    story.storyBody = s.body_text;
+                    story.storyTitle = s.title;
+                    story.storyBody = s.body;
                     locationMarker.locationData.storyList.Add(story);
                 }
             }
