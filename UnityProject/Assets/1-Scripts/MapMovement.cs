@@ -41,7 +41,7 @@ public class MapMovement : MonoBehaviour
 	private bool _isInitialized = false;
 	private Plane _groundPlane = new Plane(Vector3.up, 0);
 	private bool _dragStartedOnUI = false;
-	
+
 	void Awake()
 	{
 		if (null == _referenceCamera)
