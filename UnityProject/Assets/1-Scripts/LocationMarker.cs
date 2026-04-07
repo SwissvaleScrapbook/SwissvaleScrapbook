@@ -5,7 +5,6 @@ public class LocationMarker : MonoBehaviour
 {
     [SerializeField] public LocationData locationData;
     [SerializeField] private SpriteRenderer symbolRenderer;
-    [SerializeField] public bool isInteractable = true;
 
     
     [Header("Discovery Settings")]
@@ -42,7 +41,6 @@ public class LocationMarker : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!isInteractable) return;
         if (MapMenuController.isMapMenuOpen) return;
         PopupManager.instance.ShowLocationPopup(gameObject);
     }
