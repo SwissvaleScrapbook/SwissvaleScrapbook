@@ -21,6 +21,5 @@ public class LocationData
     public string locationName;
     
     [Header("Content")]
-    public List<ImageObject> imgList = new List<ImageObject>();
     public List<StoryCard> storyList = new List<StoryCard>();
 }

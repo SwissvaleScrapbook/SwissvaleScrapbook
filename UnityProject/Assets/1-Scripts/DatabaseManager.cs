@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using Assets;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 [System.Serializable]
 public class dbInfo
@@ -36,6 +37,11 @@ public class DatabaseManager : MonoBehaviour
 
     public void Start()
     {
+        // LOCATIONS
+        getLocations();
+
+
+        // IMAGES FETCHING
         checkLocalInfo();
         checkRemoteInfo();
 
@@ -50,12 +56,15 @@ public class DatabaseManager : MonoBehaviour
             Debug.Log("Start: Local images are up to date. No download needed.");
         }
 
+        // IMAGE SETTING
+        setImages();
+
     }
 
     private void getLocations()
     {
         // Get locations and put them into a json in the StreamingAssets folder
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Format("{0}/LOCATIONMARKERS?apikey={1}&select=*,STORIES(*)", url, api_key));
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Format("{0}/LOCATIONMARKERS?apikey={1}&select=*,STORIES(*),IMAGES(image_id)", url, api_key));
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
         using (StreamReader reader = new StreamReader(response.GetResponseStream()))
@@ -167,6 +176,12 @@ public class DatabaseManager : MonoBehaviour
         localDbInfo.updated_at = remoteDbInfo.updated_at;
         string json = JsonUtility.ToJson(localDbInfo);
         File.WriteAllText(Application.streamingAssetsPath + "/databaseImages/databaseInformation.json", json);
+    }
+
+    private void setImages()
+    {
+        // Each location marker has a list of image ids. We need to set the sprite for each image id to the corresponding image in the databaseImages folder
+        
     }
 
 }
