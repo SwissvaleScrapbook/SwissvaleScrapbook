@@ -4,10 +4,37 @@ using UnityEngine.UI;
 
 public class PlayerTrigger : MonoBehaviour
 {
+
+    public static PlayerTrigger instance;
+    public bool isGoMode = false;
+
+    void Awake()
+    {
+        instance = this;
+    }
     
     void ShowPopup(GameObject mapMarker)
     {
         PopupManager.instance.ShowLocationPopup(mapMarker);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        LocationMarker marker = other.gameObject.GetComponent<LocationMarker>();
+        if (marker != null)
+        {
+            marker.isInteractable = true;
+            Debug.Log("You've overlapped! Marker: " + marker.locationData.locationName);
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        LocationMarker marker = other.gameObject.GetComponent<LocationMarker>();
+        if (marker != null)
+        {
+            marker.isInteractable = false;
+        }
     }
 
     void HidePopup()
