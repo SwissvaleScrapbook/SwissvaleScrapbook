@@ -22,6 +22,12 @@ public class ModeController : MonoBehaviour
         PlayerTrigger.instance.isGoMode = true;
         goModeCanvas.SetActive(false);
         isGoModeSelecting = false;
+
+        // lock markers
+        foreach (LocationMarker marker in FindObjectsOfType<LocationMarker>())
+    {
+        marker.isInteractable = false;
+    }
     }
 
     public void OnStayButtonPressed()
