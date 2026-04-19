@@ -38,6 +38,7 @@ public class LocationPlacer : MonoBehaviour
     [SerializeField] private AbstractMap _map;
     [SerializeField] private GameObject markerPrefab;
     [SerializeField] private float _spawnScale = 1f;
+    [SerializeField] private float _fixedColliderRadius = 50f; // to be adjusted. 
 
     private readonly Vector3 y_increase = new Vector3(0, 10f, 0);
 
@@ -116,7 +117,17 @@ public class LocationPlacer : MonoBehaviour
             var loc = _locationData[i];
             var latLon = new Vector2d(loc.latitude, loc.longitude);
             _spawnedObjects[i].transform.localPosition = _map.GeoToWorldPosition(latLon, true) + y_increase;
+            //_spawnedObjects[i].transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+
             _spawnedObjects[i].transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+            // Fix collider to a constant world size regardless of zoom
+            SphereCollider col = _spawnedObjects[i].GetComponent<SphereCollider>();
+            if (col != null)
+            {
+                col.radius = _fixedColliderRadius / _spawnScale; // counteracts the scale
+            }
         }
     }
 

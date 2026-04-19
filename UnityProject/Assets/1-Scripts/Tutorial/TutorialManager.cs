@@ -103,6 +103,8 @@ public class TutorialManager : MonoBehaviour
         Destroy(this.gameObject);
         Destroy(tutorialLocation);
         instance = null;
+
+        ModeController.instance.ShowGoModeSelection();
     }
 
     public void ShowLocationPopup()
