@@ -99,8 +99,6 @@ public class PopupManager : MonoBehaviour
         
     }
 
-
-
     public void ShowLocationPopup(GameObject mapMarker)
     {
         locationName.GetComponent<TextMeshProUGUI>().text = mapMarker.GetComponent<LocationMarker>().locationData.locationName;
@@ -196,25 +194,4 @@ public class PopupManager : MonoBehaviour
         TutorialManager.instance.AdvanceTutorial();
         TutorialManager.instance.closeClicked = true;
     }
-
-
-    /*private void SetImages(GameObject mapMarker)
-    {
-        GameObject[] allImages = { image1, image2, image3 };
-        
-        for (int i = 0; i < allImages.Length; i++)
-        {
-            if (allImages[i] != null && i < mapMarker.GetComponent<LocationMarker>().locationData.imgList.Count)
-            {
-                Sprite imageSprite = mapMarker.GetComponent<LocationMarker>().locationData.imgList[i].image;
-                Image imgComponent = allImages[i].GetComponent<Image>();
-                
-                if (imgComponent != null && imageSprite != null)
-                {
-                    imgComponent.sprite = imageSprite;
-                }
-            }
-        }
-    }
-    */
 }
