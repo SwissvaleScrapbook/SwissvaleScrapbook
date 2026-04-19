@@ -125,7 +125,7 @@ public class LocationPlacer : MonoBehaviour
         if (!symbolNames.TryGetValue(symbolId, out string name))
         {
             Debug.LogWarning($"LocationPlacer: No symbol name for id {symbolId}");
-            return null;
+            name = "information"; // default symbol
         }
 
         Sprite sprite = Resources.Load<Sprite>($"all_maki_icons/svgs/{name}");
