@@ -42,8 +42,16 @@ public class LocationMarker : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (!isInteractable) return;
+
         if (MapMenuController.isMapMenuOpen) return;
-        PopupManager.instance.ShowLocationPopup(gameObject);
+        if (ModeController.isGoModeSelecting) return; 
+
+    // If GO mode is on, only allow tap if player obj is overlapping this marker
+    if (PlayerTrigger.instance != null && PlayerTrigger.instance.isGoMode)
+    {
+        if (!isInteractable) return;
+    }
+
+    PopupManager.instance.ShowLocationPopup(gameObject);
     }
 }
