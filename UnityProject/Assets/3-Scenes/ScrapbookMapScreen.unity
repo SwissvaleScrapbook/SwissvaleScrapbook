@@ -552,7 +552,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1108270686201735019, guid: 75e3877f7f2ad418d9dca23b6a1ac191, type: 3}
   m_PrefabInstance: {fileID: 6192269249917019707}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2017172198}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -2784,11 +2784,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1979991208}
   m_CullTransparentMesh: 1
---- !u!1 &2017172198 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 395988146780686075, guid: 75e3877f7f2ad418d9dca23b6a1ac191, type: 3}
-  m_PrefabInstance: {fileID: 6192269249917019707}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2111548660 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3507552995468751958, guid: 911163cbfed744cffb8cd89fcf097d61, type: 3}
@@ -3607,7 +3602,7 @@ PrefabInstance:
     - target: {fileID: 546141774130666896, guid: 1c03f6de0e98f4ef1bc0195a8fdfefbb, type: 3}
       propertyPath: recenterButton
       value: 
-      objectReference: {fileID: 2017172198}
+      objectReference: {fileID: 1686902447}
     - target: {fileID: 546141774130666896, guid: 1c03f6de0e98f4ef1bc0195a8fdfefbb, type: 3}
       propertyPath: tutorialLocation
       value: 

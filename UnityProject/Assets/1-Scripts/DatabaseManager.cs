@@ -55,10 +55,6 @@ public class DatabaseManager : MonoBehaviour
         else{
             Debug.Log("Start: Local images are up to date. No download needed.");
         }
-
-        // IMAGE SETTING
-        setImages();
-
     }
 
     private void getLocations()
@@ -70,7 +66,7 @@ public class DatabaseManager : MonoBehaviour
         using (StreamReader reader = new StreamReader(response.GetResponseStream()))
         {
             string json = reader.ReadToEnd();
-            File.WriteAllText(Application.streamingAssetsPath + "/locations.json", json);
+            File.WriteAllText(Application.persistentDataPath + "/locations.json", json);
         }
     }
 
@@ -79,7 +75,7 @@ public class DatabaseManager : MonoBehaviour
     {
 
         // CHeck if the databaseInformation.json file exists in the StreamingAssets folder
-        if (!File.Exists(Application.streamingAssetsPath + "/databaseImages/databaseInformation.json"))
+        if (!Directory.Exists(Application.persistentDataPath + "/databaseImages") ||!File.Exists(Application.persistentDataPath + "/databaseImages/databaseInformation.json"))
         {
             Debug.Log("checkLocalInfo: databaseInformation.json not found. Assuming no local images.");
             localDbInfo.updated_at = "1970-01-01T00:00:00Z"; // Set to epoch time to force download
@@ -87,7 +83,7 @@ public class DatabaseManager : MonoBehaviour
         }
 
         // Read the images json file from the StreamingAssets folder
-        string json = File.ReadAllText(Application.streamingAssetsPath + "/databaseImages/databaseInformation.json");
+        string json = File.ReadAllText(Application.persistentDataPath + "/databaseImages/databaseInformation.json");
 
         // Check updateTime and save it
         localDbInfo.updated_at = JsonUtility.FromJson<dbInfo>(json).updated_at;
@@ -112,7 +108,12 @@ public class DatabaseManager : MonoBehaviour
     public void deleteImages()
     {
         // Delete all images frrom the local databaseImages folder
-        string[] files = Directory.GetFiles(Application.streamingAssetsPath + "/databaseImages");
+        if (!Directory.Exists(Application.persistentDataPath + "/databaseImages"))
+        {
+            Debug.Log("deleteImages: No databaseImages folder found. Nothing to delete.");
+            return;
+        }
+        string[] files = Directory.GetFiles(Application.persistentDataPath + "/databaseImages");
         foreach (string file in files)
         {
             File.Delete(file);
@@ -144,7 +145,11 @@ public class DatabaseManager : MonoBehaviour
         // Download each image from the bucket
         foreach (ImageJSON img in imageList.images)
         {
-            string saveFolder = Path.Combine(Application.streamingAssetsPath, "databaseImages");
+            string saveFolder = Path.Combine(Application.persistentDataPath, "databaseImages");
+            if (!Directory.Exists(saveFolder))
+            {
+                Directory.CreateDirectory(saveFolder);
+            }
             string imageUrl = String.Format("{0}/{1}", bucketUrl, img.image_name);
             string savePath = Path.Combine(saveFolder, img.image_id + ".png");
 
@@ -175,13 +180,7 @@ public class DatabaseManager : MonoBehaviour
         // Update the databaseInformation.json file with the new update time
         localDbInfo.updated_at = remoteDbInfo.updated_at;
         string json = JsonUtility.ToJson(localDbInfo);
-        File.WriteAllText(Application.streamingAssetsPath + "/databaseImages/databaseInformation.json", json);
-    }
-
-    private void setImages()
-    {
-        // Each location marker has a list of image ids. We need to set the sprite for each image id to the corresponding image in the databaseImages folder
-        
+        File.WriteAllText(Application.persistentDataPath + "/databaseImages/databaseInformation.json", json);
     }
 
 }
