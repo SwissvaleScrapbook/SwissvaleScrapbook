@@ -43,7 +43,7 @@ public class LocationPlacer : MonoBehaviour
     private readonly Vector3 y_increase = new Vector3(0, 10f, 0);
 
     private List<LocationJSON> _locationData = new List<LocationJSON>();
-    private List<GameObject> _spawnedObjects = new List<GameObject>();
+    public List<GameObject> _spawnedObjects = new List<GameObject>();
     public GameObject spawnedObjectsHolder;
 
     private static readonly Dictionary<int, string> symbolNames = new Dictionary<int, string>
@@ -131,6 +131,20 @@ public class LocationPlacer : MonoBehaviour
         }
     }
 
+    public void UpdateColor(GameObject marker, Color color)
+    {
+        Debug.Log($"Updating color IN LOCATION PLACER for marker {marker.name} to {color}");
+        GameObject obj = _spawnedObjects.Find(m => m == marker);
+        if (obj != null)
+        {
+            SpriteRenderer renderer = obj.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+            {
+                renderer.color = color;
+            }
+        }
+    }
+
     private Sprite LoadSymbol(int symbolId)
     {
         if (!symbolNames.TryGetValue(symbolId, out string name))
@@ -140,17 +154,6 @@ public class LocationPlacer : MonoBehaviour
         }
 
         Sprite sprite = Resources.Load<Sprite>($"all_maki_icons/svgs/{name}");
-
-        if (sprite == null)
-        {
-            // Try loading the child sprite if the asset has sub-sprites
-            Object[] sprites = Resources.LoadAll<Sprite>($"Symbols/{name}");
-            if (sprites.Length > 0)
-                sprite = sprites[0] as Sprite;
-        }
-
-        if (sprite == null)
-            Debug.LogWarning($"LocationPlacer: Could not load sprite for symbol '{name}' (id {symbolId})");
 
         return sprite;
     }
@@ -211,7 +214,7 @@ public class LocationPlacer : MonoBehaviour
                     locationMarker.locationData.storyList.Add(story);
                 }
             }
-
+            
             _locationData.Add(data);
             _spawnedObjects.Add(marker);
         }

@@ -52,11 +52,11 @@ MonoBehaviour:
     longitude: 0
     symbol: {fileID: 0}
     locationName: 
-    imgList: []
     storyList: []
   symbolRenderer: {fileID: 9012782891284335292}
+  isInteractable: 1
   discovered: 0
-  undiscoveredColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  undiscoveredColor: {r: 1, g: 0, b: 0, a: 1}
   discoveredColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!212 &9012782891284335292
 SpriteRenderer:
@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: dda476ee544a44fc38e3473c0f9f7e2c, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
