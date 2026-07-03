@@ -157,7 +157,7 @@ public class LocationPlacer : MonoBehaviour
 
     private void LoadLocations()
     {
-        string path = Path.Combine(Application.streamingAssetsPath, "locations.json");
+        string path = Path.Combine(Application.persistentDataPath, "locations.json");
 
         if (!File.Exists(path))
         {
