@@ -20,13 +20,10 @@ Researchers interested in Swissvale, PA, have collected data on the community re
 
 To get people interested in the data, I designed Swissvale Scrapbook, an experience that takes users around the community of Swissvale. The experience is framed around oral histories about the vacant lots collected from Swissvale residents. This is a community-first application, so careful consideration has gone into decisions to ensure community wishes are respected and prevent gentrification.
 
-The current version in this repository is a rough demo. Currently, you are able to add areas of interest (AOIs) within the Unity project, then have users walk towards the AOI and interact with it. 
-
 Currently, the pop-up at each AOI shows users:
 1. The AOI Title
 2. Three pictures of the AOI
-3. One "main anecdote" of the oral histories collected from the AOI
-4. Six "sub anecdotes" of the oral histories from the AOI
+3. A stack of stories
 
 To see the future features not yet implemented, see [Future Improvements](#future-improvements)
 
@@ -66,7 +63,6 @@ If you get this (or a similar) error:
 
 - Unity v6000.3.0f1
 - Mapbox v2.0.1
-- Niantic Lightship AR Plugin v3.16.0-2509150829
 
 ## <a name="future-improvements"></a>Future Improvements
 
@@ -74,21 +70,10 @@ If you get this (or a similar) error:
 
 - **Anecdotes**: Full interaction with oral history anecdotes. Currently they are buttons, but clicking them doesn't lead anywhere. In the future, they will be able to take users to a scrolling list of quotes, and if permissions allow, audio snippets from data walks.
 - **Images**: Full interaction with the images at the bottom of the screen. Clicking on these images should expand into a scrolling list of images. Users should be able to overlay each image onto the current camera view to compare what the vacant lot was, and what it is today.
-- **Community Contribution**: A plus button will be added to the bottom right of the screen. This will take users to a form where they can add their own anecdotes about each location. Additionally, they can add images.
 - **Style**: The current, simple style of the pop-up was made for the demo. In the future, the design of the elements in the pop-up will be improved and tweaked.
 
 ### Map Screen
-- **AOI Icons**: Icons on the map screen will be improved and changed based on user feedback. Feedback from the showcase did not provide any conclusive evidence on which styles of icons users like.
-- **Map Styles**: Users will be able to select different map styles (sattelite, google maps style, etc) in a settings menu.
-- **Guidance**: Users can be guided to a nearby AOI, likely using Mapbox or Niantic's routing capabilities.
-
-### Showcase Feedback
-> This feedback was collected from various users at the DNID Capstone Showcase on 12/9/25
-- **Tutorial**: People that interacted with the demo were not sure what to do without me explaining it to them. In the future, there will be a tutorial screen that explains the purpose of the app as well as what to do at each AOI.
-- **Non-vacant lot AOIs**: Some users indicated that they would like to interact with other areas on interest within Swissvale. Consider adding other AOIs such as memorial statues in the future.
-- **Search**: Users indicated they would like to be able to search terms that relate to various AOIs. In the future, users could search terms and be guided to any AOIs that match with the search result.
-- **Player Character Design**: Some users were not sure where they were on the map screen. Consider making the player character stick out more and change style/increase boldness on the direction indicator.
-- **Timeline**: Users indicated that if they were going to look at a list of images, they would like them to be in chronological order. Consider adding a timeline of images within the image menu.
+- **Guidance**: Users can be guided to a nearby AOI, likely using Mapbox or custom routing capabilities.
 
 ### Co-design Sessions
 
@@ -97,16 +82,9 @@ In order to improve the functionality and design of the project, co-design sessi
 > Improvements to the project were made over the course of the semester using feedback from in-class workshop sessions, feedback from a classmate who is a resident of Swissvale, feedback from project sponsors, and feedback from the end of semester showcase. Further gathering feedback from Swissvalians will allow the project to cater more towards them.
 
 ### Accessibility
-
-The current demo is not as accessible to all as I would like it to be. In the future, the following improvments will be made:
-
 - **Tech Access**: Not everyone has access to a mobile phone or a cellular connection. This project should be able to be fully interactable in the Carnegie Free Library of Swissvale *at minimum*.
-- **Mobility**: In the future, users should be able to move around the player character without physically moving. This will allow those who aren't able to move around as easily in the physical world to interact with the project.
-
 
 ### Miscellaneous
 - **Badges**: Implementing some sort of badge system to increase engagement. Users should get badges for completing various tasks, such as going to a certain number of AOIs.
 - **Online Connectivity**: To increase connection within the community and promote collaboration, users should be able to connect with each other. This could be done as some sort of friend system.
 - **Device Support**: Currently, the app only supports iPhones. In the future, this should be able to run on both iOS and Android devices. Additionally, users should be able to run this on desktops without using location data. Instead, they will be able to move the character around using keyboard controls or click on a AOI to investigate it.
-- **Website**: A landing page will be made for the project to have somewhere to send users.
-- **Library Engagement**: The Carnegie Free Library of Swissvale is a great place for the community to interact with this project. Consider collaborating with them on co-design/community engagement/promotion.
